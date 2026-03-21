@@ -29,30 +29,48 @@
   max-height: 95vh;
   object-fit: contain;
   filter: brightness(1.1) contrast(1.1);
-  transform: translateY(5%);
+  transform: translateY(0%);
 }
 
 .hero__title {
   position: absolute;
-  bottom: 10%;
+  bottom: 0%;
   left: 0;
   right: 0;
   text-align: center;
   pointer-events: none;
+  z-index: 10;
+  padding-bottom: 20px;
 }
 
-.hero__year {
-  font-size: 14px;
-  letter-spacing: 4px;
+.hero__intro {
+  font-size: clamp(14px, 2vw, 18px);
+  letter-spacing: 5px;
   font-weight: 300;
-  margin-bottom: 10px;
-  opacity: 0.6;
+  margin-bottom: 5px;
+  text-transform: uppercase;
+  opacity: 0.8;
+  color: #fff;
+}
+
+.hero__main-container {
+  position: relative;
+  height: clamp(50px, 10vw, 130px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .hero__main {
-  font-size: clamp(40px, 8vw, 120px);
+  position: absolute;
+  font-size: clamp(32px, 7vw, 110px);
   text-transform: uppercase;
   font-weight: 800;
-  letter-spacing: -2px;
-  line-height: 0.9;
+  letter-spacing: -1px;
+  line-height: 1;
+  white-space: nowrap;
+  background: linear-gradient(to bottom, #fff, #aaa);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
 }

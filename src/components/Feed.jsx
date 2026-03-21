@@ -31,15 +31,6 @@ const Feed = () => {
           </motion.span>
 
           <div className="feed__title-wrap">
-            <motion.span
-              className="feed__year"
-              initial={{ opacity: 0 }}
-              whileInView={{ opacity: 1 }}
-              transition={{ duration: 0.8 }}
-              viewport={{ once: true }}
-            >
-              2026
-            </motion.span>
             <motion.h2
               className="feed__main-title"
               initial={{ opacity: 0, y: 30 }}

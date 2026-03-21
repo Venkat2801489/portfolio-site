@@ -2,6 +2,7 @@ export const initialData = {
   personalInfo: {
     name: "Venkateswaran",
     role: "Digital Marketer",
+    designations: ["Digital Marketing Specialist", "SEO Executive", "Senior SEO Executive"],
     email: "hello@venkat.design",
     bio: [
       "Venkateswaran is a **digital marketer, growth strategist,** and **creative direction enthusiast**. Based in Chennai, his career has evolved through a deep passion for building high-impact brand identities.",
@@ -16,8 +17,6 @@ export const initialData = {
     portrait: "/assets/portrait_final.png",
     resumeUrl: "/resume.pdf"
   },
-
-  // Focus / Skills shown on the Home page (can be enabled/disabled)
   focus: [
     { id: 1, label: "Brand Experience", enabled: true },
     { id: 2, label: "Digital Marketing", enabled: true },
@@ -27,39 +26,22 @@ export const initialData = {
     { id: 6, label: "Marketing Automation", enabled: true },
     { id: 7, label: "AI Workflows", enabled: true }
   ],
-
-  // Facts / About paragraphs shown on the Home page
   facts: [
     "I've dedicated my career to the intersection of Brand and Product Design, known as Brand Experience Design. Focusing on highly crafted visual design, interactive prototyping across devices and hardware, as well as an emotive and intentional approach to integrating brand and visual identity systems within digital product experiences. /",
     "I currently lead the Brand Experience (Brand XP) team at Dropbox as both a manager and an individual contributor. I oversee a team of product, brand, and motion designers. /",
     "The Brand XP team operates as a horizontal partner to the Engineering, Product, and Design organizations. We collaborate with product teams at various altitudes to elevate design craft, create branded product experiences that connect emotionally with customers, and evolve our visual identity system across our portfolio of products. /",
     "Over the years, I've analyzed, identified, and designed hundreds of emotive product experiences that have shaped how people perceive and engage with brands they know and love. By focusing on emotion, understanding a user's emotional state, and tapping into key moments, I've been able to infuse brand into product experiences in ways that build trust, drive preference, and create deep affinity for some of the world's most recognized brands. /"
   ],
-
   experiences: [
     { id: 1, company: "Dropbox", role: "Product Design", logo: "", period: "SEPT 2022 - PRESENT" },
     { id: 2, company: "Robinhood", role: "Product Design", logo: "", period: "JAN 2021 - AUG 2022" },
     { id: 3, company: "Lyft", role: "Product Design", logo: "", period: "JUN 2019 - DEC 2020" },
     { id: 4, company: "SurveyMonkey", role: "Product Design", logo: "", period: "MAR 2018 - MAY 2019" }
   ],
-
   certifications: [
-    {
-      id: 1,
-      name: "Advanced Digital Marketing",
-      issuer: "Google Career Certificates",
-      logo: "",
-      link: "https://drive.google.com/your-certificate-1"
-    },
-    {
-      id: 2,
-      name: "SEO Expert Certification",
-      issuer: "HubSpot Academy",
-      logo: "",
-      link: "https://drive.google.com/your-certificate-2"
-    }
+    { id: 1, name: "Advanced Digital Marketing", issuer: "Google Career Certificates", logo: "", link: "https://drive.google.com/your-certificate-1" },
+    { id: 2, name: "SEO Expert Certification", issuer: "HubSpot Academy", logo: "", link: "https://drive.google.com/your-certificate-2" }
   ],
-
   projects: [
     {
       id: 1,
@@ -69,9 +51,6 @@ export const initialData = {
       image: "https://images.unsplash.com/photo-1569336415962-a4bd9f6dfc0f?q=80&w=2000&auto=format&fit=crop",
       year: "2024",
       description: "Scaling local search visibility through advanced GMB strategies and review management.",
-      driveLink: "",
-      notionLink: "",
-      gallery: [],
       sections: [
         { id: 101, type: "text", heading: "Overview", content: "This project focused on scaling local search visibility for a regional business through targeted Google Maps strategies." },
         { id: 102, type: "text", heading: "The Challenge", content: "The client had low visibility in local search results despite having a strong offline presence." },
@@ -81,8 +60,7 @@ export const initialData = {
       seo: {
         title: "Google Maps SEO Case Study | Venkateswaran",
         description: "How we achieved a 3x increase in map views using advanced GMB strategies.",
-        keywords: "GMB SEO, Local SEO, Google Maps Optimization",
-        canonical: ""
+        keywords: "GMB SEO, Local SEO, Google Maps Optimization"
       }
     },
     {
@@ -93,9 +71,6 @@ export const initialData = {
       image: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?q=80&w=2426&auto=format&fit=crop",
       year: "2023",
       description: "Driving 200% increase in organic traffic for a series-B fintech startup through content clusters.",
-      driveLink: "",
-      notionLink: "",
-      gallery: [],
       sections: [
         { id: 201, type: "text", heading: "Overview", content: "Driving 200% increase in organic traffic for a series-B fintech startup through content clusters and technical SEO." },
         { id: 202, type: "text", heading: "The Challenge", content: "Keyword cannibalization and technical debt were the primary bottlenecks causing growth plateau." },
@@ -105,8 +80,7 @@ export const initialData = {
       seo: {
         title: "SaaS SEO Growth Strategy | 200% Traffic Increase",
         description: "A deep dive into fintech SaaS SEO and content cluster strategies.",
-        keywords: "SaaS SEO, Growth Marketing, Fintech Marketing",
-        canonical: ""
+        keywords: "SaaS SEO, Growth Marketing, Fintech Marketing"
       }
     },
     {
@@ -117,9 +91,6 @@ export const initialData = {
       image: "https://images.unsplash.com/photo-1614332287897-cdc485fa562d?q=80&w=2070&auto=format&fit=crop",
       year: "2024",
       description: "Building high-performance e-commerce sites using WordPress as a decoupled CMS.",
-      driveLink: "",
-      notionLink: "",
-      gallery: [],
       sections: [
         { id: 301, type: "text", heading: "Overview", content: "Building high-performance e-commerce sites using WordPress as a decoupled headless CMS." },
         { id: 302, type: "text", heading: "The Challenge", content: "The client needed a fast, scalable e-commerce experience without the performance limitations of traditional WordPress themes." },
@@ -129,8 +100,7 @@ export const initialData = {
       seo: {
         title: "Headless WordPress E-commerce | High Performance Web",
         description: "Case study on decoupled WordPress architecture with React frontend.",
-        keywords: "Headless WordPress, React E-commerce, Performance Optimization",
-        canonical: ""
+        keywords: "Headless WordPress, React E-commerce, Performance Optimization"
       }
     },
     {
@@ -141,9 +111,6 @@ export const initialData = {
       image: "https://images.unsplash.com/photo-1551288049-bbbda536339a?q=80&w=2070&auto=format&fit=crop",
       year: "2022",
       description: "Developing custom scripts to automate lead qualification and CRM synchronization.",
-      driveLink: "",
-      notionLink: "",
-      gallery: [],
       sections: [
         { id: 401, type: "text", heading: "Overview", content: "Developing custom automation scripts to qualify leads and sync data with CRM systems." },
         { id: 402, type: "text", heading: "The Challenge", content: "Manual lead qualification was consuming significant team time and causing delays in follow-ups." },
@@ -153,8 +120,7 @@ export const initialData = {
       seo: {
         title: "CRM Marketing Automation | Lead Gen Optimization",
         description: "Automating lead qualification to reduce response time by 40%.",
-        keywords: "Marketing Automation, CRM Sync, Lead Qualification",
-        canonical: ""
+        keywords: "Marketing Automation, CRM Sync, Lead Qualification"
       }
     },
     {
@@ -165,9 +131,6 @@ export const initialData = {
       image: "https://images.unsplash.com/photo-1677442136019-21780ecad995?q=80&w=2070&auto=format&fit=crop",
       year: "2024",
       description: "Leveraging Anthropic's Claude for advanced content modeling and personalized marketing.",
-      driveLink: "",
-      notionLink: "",
-      gallery: [],
       sections: [
         { id: 501, type: "text", heading: "Overview", content: "Leveraging Claude AI for advanced content modeling and personalized marketing at scale." },
         { id: 502, type: "text", heading: "The Challenge", content: "Creating personalized content at scale was resource-intensive and inconsistent in quality." },
@@ -177,8 +140,7 @@ export const initialData = {
       seo: {
         title: "AI Marketing Workflows | Scaling with Claude",
         description: "How we used Generative AI to scale content production while reducing costs by 60%.",
-        keywords: "AI Marketing, Claude AI, Content Scaling",
-        canonical: ""
+        keywords: "AI Marketing, Claude AI, Content Scaling"
       }
     },
     {
@@ -189,9 +151,6 @@ export const initialData = {
       image: "https://images.unsplash.com/photo-1551288049-bbbda536339a?q=80&w=2070&auto=format&fit=crop",
       year: "2023",
       description: "A comprehensive Google Sheets resource for tracking multi-channel marketing ROI.",
-      driveLink: "",
-      notionLink: "",
-      gallery: [],
       sections: [
         { id: 601, type: "text", heading: "Overview", content: "A comprehensive Google Sheets system for tracking multi-channel marketing ROI and campaign performance." },
         { id: 602, type: "text", heading: "The Challenge", content: "Marketing data was scattered across platforms with no unified view of ROI." },
@@ -201,46 +160,42 @@ export const initialData = {
       seo: {
         title: "Marketing ROI Dashboard | Google Sheets Resource",
         description: "Unified marketing reporting system pulling data from GA4 and GSC.",
-        keywords: "Marketing Analytics, ROI Dashboard, Google Sheets reporting",
-        canonical: ""
+        keywords: "Marketing Analytics, ROI Dashboard, Google Sheets reporting"
       }
     }
   ],
-
-  // New SEO Page Management
   seo: {
     pages: {
-      home: { 
-        slug: "/", 
-        title: "Venkateswaran | Digital Marketer & Growth Strategist", 
-        description: "Venkateswaran is a marketing strategist based in Chennai, specializing in SEO, growth, and creative direction.", 
-        keywords: "Venkateswaran, Digital Marketer, Growth Strategist, Chennai Marketing", 
+      home: {
+        slug: "/",
+        title: "Venkateswaran | Digital Marketer & Growth Strategist",
+        description: "Venkateswaran is a marketing strategist based in Chennai, specializing in SEO, growth, and creative direction.",
+        keywords: "Venkateswaran, Digital Marketer, Growth Strategist, Chennai Marketing",
         canonical: "https://venkats-portfolio.vercel.app/"
       },
-      profile: { 
-        slug: "/profile", 
-        title: "About | Venkateswaran — Growth & Creative Direction", 
-        description: "Learn more about Venkateswaran's career path from Microsoft to Dropbox.", 
-        keywords: "Venkateswaran Bio, Career Timeline, Brand Experience", 
+      profile: {
+        slug: "/profile",
+        title: "About | Venkateswaran — Growth & Creative Direction",
+        description: "Learn more about Venkateswaran's career path from Microsoft to Dropbox.",
+        keywords: "Venkateswaran Bio, Career Timeline, Brand Experience",
         canonical: "https://venkats-portfolio.vercel.app/profile"
       },
-      work: { 
-        slug: "/work", 
-        title: "Portfolio | Case Studies by Venkateswaran", 
-        description: "Explore marketing case studies in SEO, Automation, and AI workflows.", 
-        keywords: "Marketing Portfolio, SEO Case Studies, AI Marketing Projects", 
+      work: {
+        slug: "/work",
+        title: "Portfolio | Case Studies by Venkateswaran",
+        description: "Explore marketing case studies in SEO, Automation, and AI workflows.",
+        keywords: "Marketing Portfolio, SEO Case Studies, AI Marketing Projects",
         canonical: "https://venkats-portfolio.vercel.app/work"
       },
-      contact: { 
-        slug: "/contact", 
-        title: "Contact | Work with Venkateswaran", 
-        description: "Get in touch for digital marketing consultation or creative direction projects.", 
-        keywords: "Hire Digital Marketer, Marketing Consultant Chennai", 
+      contact: {
+        slug: "/contact",
+        title: "Contact | Work with Venkateswaran",
+        description: "Get in touch for digital marketing consultation or creative direction projects.",
+        keywords: "Hire Digital Marketer, Marketing consultant Chennai",
         canonical: "https://venkats-portfolio.vercel.app/contact"
       }
     }
   },
-
   footer: {
     address: "Permanently located in Chennai, Tamil Nadu",
     tagline: "Building digital bridges between brands and people."

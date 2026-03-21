@@ -21,18 +21,6 @@ body {
 }
 
 /* The blue neon border around the entire viewport */
-body::before {
-  content: "";
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  border: 1px solid var(--accent-color);
-  box-shadow: inset var(--neon-glow), var(--neon-glow);
-  pointer-events: none;
-  z-index: 1000;
-}
 
 a {
   color: inherit;

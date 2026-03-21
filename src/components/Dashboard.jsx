@@ -355,7 +355,7 @@ const Dashboard = () => {
                             onChange={e => updatePersonalInfo('name', e.target.value)} />
                         </div>
                         <div className="input-group">
-                          <label>Professional Role</label>
+                          <label>Professional Role (Subtitle)</label>
                           <input type="text" value={localData.personalInfo.role}
                             onChange={e => updatePersonalInfo('role', e.target.value)} />
                         </div>
@@ -371,6 +371,48 @@ const Dashboard = () => {
                           <input type="text" value={localData.personalInfo.portrait}
                             onChange={e => updatePersonalInfo('portrait', e.target.value)} />
                         </div>
+                      </div>
+                    </div>
+
+                    <div className="config-card full">
+                      <h3>Rotating Hero Designations</h3>
+                      <p className="section-hint">These titles animate in sequence on your Home page's main hero section.</p>
+                      <div className="designations-editor">
+                        {(localData.personalInfo.designations || []).map((desc, idx) => (
+                          <div key={idx} className="input-group designation-row" style={{ display: 'flex', gap: '10px', marginBottom: '10px' }}>
+                            <input
+                              type="text"
+                              value={desc}
+                              placeholder="e.g. SEO Specialist"
+                              style={{ flex: 1 }}
+                              onChange={e => {
+                                const newDescs = [...localData.personalInfo.designations];
+                                newDescs[idx] = e.target.value;
+                                updatePersonalInfo('designations', newDescs);
+                              }}
+                            />
+                            <button 
+                              className="row-delete-btn" 
+                              style={{ padding: '0 15px', background: 'rgba(255,0,0,0.1)', color: '#ff4444', border: '1px solid rgba(255,0,0,0.2)', borderRadius: '4px', cursor: 'pointer' }}
+                              onClick={() => {
+                                const newDescs = localData.personalInfo.designations.filter((_, i) => i !== idx);
+                                updatePersonalInfo('designations', newDescs);
+                              }}
+                            >
+                              REMOVE
+                            </button>
+                          </div>
+                        ))}
+                        <button 
+                          className="ghost-add-btn sm" 
+                          style={{ marginTop: '5px' }}
+                          onClick={() => {
+                            const newDescs = [...(localData.personalInfo.designations || []), ""];
+                            updatePersonalInfo('designations', newDescs);
+                          }}
+                        >
+                          + ADD DESIGNATION
+                        </button>
                       </div>
                     </div>
 

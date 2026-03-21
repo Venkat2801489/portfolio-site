@@ -505,3 +505,503 @@
   text-align: center;
   text-transform: uppercase;
 }
+
+/* ── Section Hint ── */
+.section-hint {
+  font-size: 11px;
+  color: var(--db-text-dim);
+  margin-top: 4px;
+  font-style: italic;
+}
+
+/* ── Toggle Switch ── */
+.toggle-switch {
+  position: relative;
+  display: inline-block;
+  cursor: pointer;
+}
+.toggle-switch input { display: none; }
+.toggle-track {
+  display: block;
+  width: 44px;
+  height: 24px;
+  background: #333;
+  border-radius: 12px;
+  position: relative;
+  transition: background 0.3s ease;
+}
+.toggle-switch input:checked + .toggle-track {
+  background: var(--db-accent-primary);
+}
+.toggle-thumb {
+  position: absolute;
+  top: 3px;
+  left: 3px;
+  width: 18px;
+  height: 18px;
+  background: #fff;
+  border-radius: 50%;
+  transition: transform 0.3s ease;
+}
+.toggle-switch input:checked + .toggle-track .toggle-thumb {
+  transform: translateX(20px);
+}
+
+/* ── Toggle label pill ── */
+.toggle-label {
+  font-size: 10px;
+  letter-spacing: 1px;
+  padding: 3px 8px;
+  border-radius: 3px;
+  font-weight: 600;
+}
+.toggle-label.enabled {
+  background: rgba(0, 255, 204, 0.1);
+  color: var(--db-accent-primary);
+}
+.toggle-label.disabled {
+  background: rgba(255, 255, 255, 0.05);
+  color: var(--db-text-dim);
+}
+
+/* ── Focus stack ── */
+.focus-stack {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.focus-row-card {
+  background: var(--db-bg-card);
+  border: 1px solid var(--db-border-light);
+  padding: 14px 20px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  transition: border-color 0.3s;
+}
+.focus-row-card:hover {
+  border-color: var(--db-border-accent);
+}
+.drag-handle {
+  color: var(--db-text-dim);
+  font-size: 16px;
+  cursor: grab;
+  opacity: 0.4;
+}
+.focus-label-input {
+  flex: 1;
+  background: var(--db-bg-input);
+  border: 1px solid var(--db-border-light);
+  padding: 10px 14px;
+  color: var(--db-text-main);
+  font-size: 14px;
+  font-family: inherit;
+  transition: border-color 0.3s;
+}
+.focus-label-input:focus {
+  outline: none;
+  border-color: var(--db-accent-primary);
+}
+.focus-controls {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+/* ── Facts stack ── */
+.facts-stack {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+.facts-row-card {
+  background: var(--db-bg-card);
+  border: 1px solid var(--db-border-light);
+  padding: 20px 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.facts-row-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.facts-label {
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: var(--db-text-dim);
+}
+.facts-row-card textarea {
+  background: var(--db-bg-input);
+  border: 1px solid var(--db-border-light);
+  padding: 12px 16px;
+  color: var(--db-text-main);
+  font-size: 14px;
+  font-family: inherit;
+  resize: vertical;
+  transition: border-color 0.3s;
+  width: 100%;
+  box-sizing: border-box;
+}
+.facts-row-card textarea:focus {
+  outline: none;
+  border-color: var(--db-accent-primary);
+}
+.row-delete-btn.text-btn {
+  font-size: 11px;
+  letter-spacing: 1px;
+  color: #ff4444;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  opacity: 0.7;
+  transition: opacity 0.2s;
+}
+.row-delete-btn.text-btn:hover { opacity: 1; }
+
+/* ── Logo Field ── */
+.logo-field {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.logo-field input {
+  flex: 1;
+  background: var(--db-bg-input);
+  border: 1px solid var(--db-border-light);
+  padding: 10px 14px;
+  color: var(--db-text-main);
+  font-size: 13px;
+  font-family: inherit;
+  transition: border-color 0.3s;
+}
+.logo-field input:focus {
+  outline: none;
+  border-color: var(--db-accent-primary);
+}
+.logo-thumb {
+  width: 32px;
+  height: 32px;
+  object-fit: contain;
+  border: 1px solid var(--db-border-light);
+  background: #fff;
+  padding: 2px;
+  border-radius: 4px;
+  flex-shrink: 0;
+}
+
+/* ── Enhanced Experience / Cert Card ── */
+.exp-card {
+  flex-direction: column !important;
+  gap: 16px !important;
+  padding: 24px !important;
+}
+.exp-logo-col {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  width: 100%;
+}
+.logo-preview-box {
+  width: 56px;
+  height: 56px;
+  border: 1px solid var(--db-border-light);
+  background: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  border-radius: 6px;
+  overflow: hidden;
+}
+.logo-thumb-lg {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  padding: 4px;
+}
+.logo-placeholder {
+  font-size: 22px;
+  font-weight: 800;
+  color: #333;
+}
+.item-main-fields {
+  width: 100%;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 14px;
+}
+
+/* ── Project accordion ── */
+.dashboard-wrapper .projects-grid-layout {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+.project-detail-card {
+  background: var(--db-bg-card);
+  border: 1px solid var(--db-border-light);
+  overflow: hidden;
+  transition: border-color 0.3s;
+}
+.project-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 24px;
+  cursor: pointer;
+  user-select: none;
+  transition: background 0.2s;
+}
+.project-card-header:hover {
+  background: rgba(255,255,255,0.02);
+}
+.proj-header-left {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+.proj-thumb {
+  width: 60px;
+  height: 40px;
+  object-fit: cover;
+  border-radius: 4px;
+}
+.proj-cat-tag {
+  font-size: 10px;
+  letter-spacing: 2px;
+  color: var(--db-accent-primary);
+  text-transform: uppercase;
+  display: block;
+  margin-bottom: 4px;
+}
+.proj-header-left h3 {
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--db-text-main);
+  margin: 0 0 4px;
+}
+.proj-year {
+  font-size: 11px;
+  color: var(--db-text-dim);
+}
+.proj-header-right {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+.card-delete {
+  background: none;
+  border: 1px solid rgba(255,68,68,0.3);
+  color: #ff4444;
+  font-size: 9px;
+  letter-spacing: 1px;
+  padding: 6px 12px;
+  cursor: pointer;
+  transition: all 0.2s;
+  text-transform: uppercase;
+}
+.card-delete:hover {
+  background: rgba(255,68,68,0.1);
+  border-color: #ff4444;
+}
+.expand-icon {
+  color: var(--db-text-dim);
+  font-size: 12px;
+  transition: color 0.3s;
+}
+.project-card-header:hover .expand-icon {
+  color: var(--db-accent-primary);
+}
+
+/* ── Project Editor ── */
+.project-editor {
+  border-top: 1px solid var(--db-border-light);
+  overflow: hidden;
+}
+.editor-block {
+  padding: 24px;
+  border-bottom: 1px solid var(--db-border-light);
+}
+.editor-block:last-child { border-bottom: none; }
+.editor-block-title {
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  color: var(--db-text-dim);
+  margin: 0 0 16px;
+}
+.editor-block-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16px;
+}
+.editor-block-header .editor-block-title { margin-bottom: 0; }
+.ghost-add-btn.sm {
+  padding: 5px 12px;
+  font-size: 10px;
+}
+
+/* ── Content Section Card ── */
+.content-section-card {
+  background: var(--db-bg-deep);
+  border: 1px solid var(--db-border-light);
+  margin-bottom: 16px;
+  overflow: hidden;
+}
+.content-section-card:last-child { margin-bottom: 0; }
+.section-card-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 16px;
+  background: rgba(255,255,255,0.02);
+  border-bottom: 1px solid var(--db-border-light);
+}
+.section-heading-input {
+  flex: 1;
+  background: transparent;
+  border: none;
+  color: var(--db-text-main);
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  font-family: inherit;
+}
+.section-heading-input:focus { outline: none; }
+
+/* ── Rich Text Editor ── */
+.rich-editor-wrapper {
+  display: flex;
+  flex-direction: column;
+}
+.rich-toolbar {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 4px;
+  padding: 8px 12px;
+  background: #1e1e1e;
+  border-bottom: 1px solid var(--db-border-light);
+}
+.rich-toolbar button {
+  background: none;
+  border: 1px solid transparent;
+  color: var(--db-text-dim);
+  padding: 4px 8px;
+  font-size: 12px;
+  cursor: pointer;
+  border-radius: 3px;
+  font-family: inherit;
+  transition: all 0.2s;
+  line-height: 1;
+}
+.rich-toolbar button:hover {
+  background: rgba(0,255,204,0.1);
+  border-color: var(--db-accent-primary);
+  color: var(--db-accent-primary);
+}
+.toolbar-sep {
+  width: 1px;
+  height: 18px;
+  background: var(--db-border-light);
+  margin: 0 4px;
+}
+.rich-editor {
+  min-height: 120px;
+  padding: 14px 16px;
+  color: var(--db-text-main);
+  font-size: 14px;
+  font-family: inherit;
+  line-height: 1.7;
+  outline: none;
+  background: var(--db-bg-input);
+  cursor: text;
+}
+.rich-editor:focus {
+  background: rgba(0,255,204,0.02);
+}
+.rich-editor h1, .rich-editor h2, .rich-editor h3 {
+  color: var(--db-text-main);
+  margin: 8px 0 4px;
+}
+.rich-editor ul, .rich-editor ol {
+  padding-left: 20px;
+  margin: 8px 0;
+}
+.rich-editor a {
+  color: var(--db-accent-primary);
+  text-decoration: underline;
+}
+
+/* ── Gallery URL list ── */
+.gallery-url-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.gallery-url-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.gallery-url-row input {
+  flex: 1;
+  background: var(--db-bg-input);
+  border: 1px solid var(--db-border-light);
+  padding: 10px 14px;
+  color: var(--db-text-main);
+  font-size: 13px;
+  font-family: inherit;
+}
+.gallery-url-row input:focus {
+  outline: none;
+  border-color: var(--db-accent-primary);
+}
+.gallery-thumb {
+  width: 48px;
+  height: 36px;
+  object-fit: cover;
+  border-radius: 3px;
+  flex-shrink: 0;
+}
+
+/* ── Project not found ── */
+.project-not-found {
+  padding: 120px 0;
+}
+.project-not-found h1 {
+  font-size: 32px;
+  margin: 24px 0 12px;
+}
+.detail-subtitle {
+  color: #888;
+  font-size: 16px;
+  margin-top: 12px;
+  max-width: 600px;
+}
+
+/* ── Detail section alternating bg ── */
+.detail-section {
+  padding: 80px 0;
+}
+.detail-section.bg-dark {
+  background: #0a0a0a;
+}
+.gallery-label {
+  font-size: 11px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: #888;
+  margin-bottom: 24px;
+}
+.gallery-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 16px;
+}
+

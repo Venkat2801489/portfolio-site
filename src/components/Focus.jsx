@@ -1,18 +1,12 @@
 import React from 'react';
 import { motion } from 'framer-motion';
+import { usePortfolio } from '../context/PortfolioContext';
 import './Focus.css';
 
-const services = [
-  "Brand Experience",
-  "Product Design",
-  "Brand Design",
-  "Creative Direction",
-  "Motion Design",
-  "Prototyping",
-  "Icon Design"
-];
-
 const Focus = () => {
+  const { portfolioData } = usePortfolio();
+  const enabledFocus = (portfolioData.focus || []).filter(item => item.enabled);
+
   return (
     <section className="focus" id="focus">
       <div className="container focus__content">
@@ -27,16 +21,16 @@ const Focus = () => {
           </motion.span>
         </div>
         <div className="focus__list">
-          {services.map((service, index) => (
+          {enabledFocus.map((item, index) => (
             <motion.div 
-              key={index}
+              key={item.id}
               className="focus__item"
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: index * 0.1 }}
               viewport={{ once: true }}
             >
-              <h2>{service}</h2>
+              <h2>{item.label}</h2>
             </motion.div>
           ))}
         </div>

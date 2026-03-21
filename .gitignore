@@ -27,3 +27,5 @@ dist-ssr
 awesome-skills
 handling-errors
 antigravity-skill-creator.md
+.vercel
+.env*.local

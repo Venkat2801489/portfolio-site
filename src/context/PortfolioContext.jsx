@@ -4,7 +4,7 @@ import { initialData } from '../data/initialData';
 const PortfolioContext = createContext();
 
 // Increment this whenever initialData schema changes, to bust stale localStorage
-const DATA_VERSION = '3';
+const DATA_VERSION = '4';
 
 export const PortfolioProvider = ({ children }) => {
   const [portfolioData, setPortfolioData] = useState(() => {

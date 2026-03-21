@@ -1,28 +1,29 @@
 import React from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
+import { usePortfolio } from '../context/PortfolioContext';
 import './ProjectDetail.css';
-
-// Mock data for projects - in future this will come from Supabase
-const projectDetails = {
-  1: {
-    title: 'Precision SEO Strategy',
-    category: 'SEO',
-    heroImage: '/Users/venkat/.gemini/antigravity/brain/a7709972-85f7-404e-94f3-aaccbb6183de/project_hero_mockup_1774023571480.png',
-    gallery: ['/Users/venkat/.gemini/antigravity/brain/a7709972-85f7-404e-94f3-aaccbb6183de/project_gallery_1_1774023593437.png'],
-    overview: 'This project focused on scaling organic traffic for a leading enterprise SaaS platform through technical SEO audits and intent-based content strategy.',
-    challenge: 'The client was experiencing a plateau in organic growth despite high volume content production. Keyword cannibalization and technical debt were the primary bottlenecks.',
-    solution: 'We implemented a full-scale content pruning strategy, restructured the site hierarchy for better crawlability, and executed a targeted backlink campaign on high-authority industry domains.',
-    results: ['145% Increase in Organic Traffic', 'Top 3 Ranking for 50+ High-Intent Keywords', '30% Decrease in Bounce Rate'],
-    sheetLink: 'https://docs.google.com/spreadsheets/d/1example123',
-    files: ['SEO_Technical_Audit.pdf', 'Content_Strategy_2026.md']
-  },
-  // Adding more entries as needed...
-};
 
 const ProjectDetail = () => {
   const { id } = useParams();
-  const project = projectDetails[id] || projectDetails[1]; // Default to first for demo
+  const { portfolioData } = usePortfolio();
+  const project = portfolioData.projects.find(p => String(p.id) === String(id));
+
+  if (!project) {
+    return (
+      <div className="project-detail project-not-found">
+        <div className="container">
+          <Link to="/work" className="back-btn">← Back to Work</Link>
+          <h1>Project not found.</h1>
+          <p>This project may have been removed or the link is incorrect.</p>
+        </div>
+      </div>
+    );
+  }
+
+  const resourceLinks = [];
+  if (project.driveLink) resourceLinks.push({ label: 'Google Drive', url: project.driveLink, icon: '📂' });
+  if (project.notionLink) resourceLinks.push({ label: 'Notion Page', url: project.notionLink, icon: '📝' });
 
   return (
     <motion.div 
@@ -43,87 +44,75 @@ const ProjectDetail = () => {
           >
             <span className="detail-category">{project.category}</span>
             <h1 className="detail-title">{project.title}</h1>
+            <p className="detail-subtitle">{project.description}</p>
           </motion.div>
         </div>
-        <div className="hero-image-wrap">
-          <img src={project.heroImage} alt={project.title} />
-        </div>
+        {project.image && (
+          <div className="hero-image-wrap">
+            <img src={project.image} alt={project.title} />
+          </div>
+        )}
       </section>
 
-      {/* Content Sections */}
-      <section className="detail-overview">
-        <div className="container grid-2">
-          <div className="section-label">Overview</div>
-          <div className="section-body">
-            <p className="lead-text">{project.overview}</p>
+      {/* Dynamic Content Sections */}
+      {(project.sections || []).map((section, index) => (
+        <motion.section 
+          key={section.id}
+          className={`detail-section ${index % 2 !== 0 ? 'bg-dark' : ''}`}
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6 }}
+        >
+          <div className="container grid-2">
+            <div className="section-label">{section.heading}</div>
+            <div 
+              className="section-body"
+              dangerouslySetInnerHTML={{ __html: section.content }}
+            />
           </div>
-        </div>
-      </section>
-
-      <section className="detail-challenge bg-dark">
-        <div className="container grid-2">
-          <div className="section-label">The Challenge</div>
-          <div className="section-body">
-            <p>{project.challenge}</p>
-          </div>
-        </div>
-      </section>
-
-      <section className="detail-solution">
-        <div className="container grid-2">
-          <div className="section-label">Solution</div>
-          <div className="section-body">
-            <p>{project.solution}</p>
-            <ul className="results-list">
-              {project.results.map((res, i) => (
-                <li key={i}>{res}</li>
-              ))}
-            </ul>
-          </div>
-        </div>
-      </section>
+        </motion.section>
+      ))}
 
       {/* Gallery Section */}
-      <section className="detail-gallery">
-        <div className="container">
-          {project.gallery.map((img, i) => (
-            <div key={i} className="gallery-item">
-              <img src={img} alt={`Gallery ${i}`} />
+      {project.gallery && project.gallery.length > 0 && (
+        <section className="detail-gallery">
+          <div className="container">
+            <div className="gallery-label">Gallery</div>
+            <div className="gallery-grid">
+              {project.gallery.map((img, i) => (
+                <div key={i} className="gallery-item">
+                  <img src={img} alt={`${project.title} — ${i + 1}`} />
+                </div>
+              ))}
             </div>
-          ))}
-        </div>
-      </section>
+          </div>
+        </section>
+      )}
 
-      {/* Resources & Uploads - SUPABASE INTEGRATION READY */}
-      <section className="detail-resources bg-white">
-        <div className="container">
-          <div className="grid-2">
-            <div className="section-label text-black">Resources</div>
-            <div className="section-body text-black">
-              <h3>Project Assets</h3>
-              <div className="resource-links">
-                <a href={project.sheetLink} target="_blank" rel="noreferrer" className="resource-card">
-                  <div className="icon">📊</div>
-                  <div>
-                    <h4>Google Sheets Data</h4>
-                    <p>Live project tracking and analytics data.</p>
-                  </div>
-                </a>
-                
-                {project.files.map((file, i) => (
-                  <div key={i} className="resource-card">
-                    <div className="icon">{file.endsWith('.pdf') ? '📄' : '📝'}</div>
-                    <div>
-                      <h4>{file}</h4>
-                      <p>Download project documentation.</p>
-                    </div>
-                  </div>
-                ))}
+      {/* Resources Section */}
+      {resourceLinks.length > 0 && (
+        <section className="detail-resources bg-white">
+          <div className="container">
+            <div className="grid-2">
+              <div className="section-label text-black">Resources</div>
+              <div className="section-body text-black">
+                <div className="resource-links">
+                  {resourceLinks.map((res, i) => (
+                    <a key={i} href={res.url} target="_blank" rel="noreferrer" className="resource-card">
+                      <div className="icon">{res.icon}</div>
+                      <div>
+                        <h4>{res.label}</h4>
+                        <p>Open project resource</p>
+                      </div>
+                    </a>
+                  ))}
+                </div>
               </div>
             </div>
           </div>
-        </div>
-      </section>
+        </section>
+      )}
     </motion.div>
   );
 };

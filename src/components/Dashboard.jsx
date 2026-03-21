@@ -1,11 +1,100 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef, useCallback } from 'react';
 import { usePortfolio } from '../context/PortfolioContext';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import './Dashboard.css';
 
-const DASHBOARD_PASSWORD = "admin"; // Simple hardcoded password
+const DASHBOARD_PASSWORD = "admin";
 
+// ── Rich Text Toolbar ──────────────────────────────────────────────────────────
+const RichToolbar = ({ onCommand }) => (
+  <div className="rich-toolbar">
+    <button type="button" title="Bold" onClick={() => onCommand('bold')}><b>B</b></button>
+    <button type="button" title="Italic" onClick={() => onCommand('italic')}><i>I</i></button>
+    <button type="button" title="Underline" onClick={() => onCommand('underline')}><u>U</u></button>
+    <span className="toolbar-sep" />
+    <button type="button" title="H1" onClick={() => onCommand('formatBlock', 'H1')}>H1</button>
+    <button type="button" title="H2" onClick={() => onCommand('formatBlock', 'H2')}>H2</button>
+    <button type="button" title="H3" onClick={() => onCommand('formatBlock', 'H3')}>H3</button>
+    <span className="toolbar-sep" />
+    <button type="button" title="Bullet List" onClick={() => onCommand('insertUnorderedList')}>• List</button>
+    <button type="button" title="Numbered List" onClick={() => onCommand('insertOrderedList')}>1. List</button>
+    <span className="toolbar-sep" />
+    <button type="button" title="Insert Link" onClick={() => {
+      const url = prompt('Enter URL:');
+      if (url) onCommand('createLink', url);
+    }}>🔗 Link</button>
+    <button type="button" title="Remove Link" onClick={() => onCommand('unlink')}>✂ Unlink</button>
+    <span className="toolbar-sep" />
+    <button type="button" title="Clear Formatting" onClick={() => onCommand('removeFormat')}>✕ Clear</button>
+  </div>
+);
+
+// ── Rich Text Editor ───────────────────────────────────────────────────────────
+const RichEditor = ({ value, onChange }) => {
+  const ref = useRef(null);
+  const isUpdating = useRef(false);
+
+  // Sync external value → DOM (only when changed externally)
+  useEffect(() => {
+    if (ref.current && !isUpdating.current && ref.current.innerHTML !== value) {
+      ref.current.innerHTML = value || '';
+    }
+  }, [value]);
+
+  const handleInput = useCallback(() => {
+    isUpdating.current = true;
+    onChange(ref.current.innerHTML);
+    setTimeout(() => { isUpdating.current = false; }, 0);
+  }, [onChange]);
+
+  const execCmd = (cmd, val) => {
+    ref.current.focus();
+    document.execCommand(cmd, false, val || null);
+    handleInput();
+  };
+
+  return (
+    <div className="rich-editor-wrapper">
+      <RichToolbar onCommand={execCmd} />
+      <div
+        ref={ref}
+        className="rich-editor"
+        contentEditable
+        suppressContentEditableWarning
+        onInput={handleInput}
+        onBlur={handleInput}
+      />
+    </div>
+  );
+};
+
+// ── Logo Upload Field ──────────────────────────────────────────────────────────
+const LogoField = ({ value, onChange, placeholder = "Paste logo image URL" }) => (
+  <div className="logo-field">
+    {value && <img src={value} alt="logo preview" className="logo-thumb" />}
+    <input
+      type="text"
+      value={value}
+      placeholder={placeholder}
+      onChange={e => onChange(e.target.value)}
+    />
+  </div>
+);
+
+// ── Toggle Switch ──────────────────────────────────────────────────────────────
+const Toggle = ({ checked, onChange }) => (
+  <label className="toggle-switch">
+    <input type="checkbox" checked={checked} onChange={e => onChange(e.target.checked)} />
+    <span className="toggle-track">
+      <span className="toggle-thumb" />
+    </span>
+  </label>
+);
+
+// ═══════════════════════════════════════════════════════════════════════════════
+// Dashboard Component
+// ═══════════════════════════════════════════════════════════════════════════════
 const Dashboard = () => {
   const { portfolioData, updatePortfolioData } = usePortfolio();
   const [activeTab, setActiveTab] = useState('general');
@@ -14,19 +103,14 @@ const Dashboard = () => {
   const [password, setPassword] = useState('');
   const [isAuthorized, setIsAuthorized] = useState(false);
   const [loginError, setLoginError] = useState('');
+  const [expandedProject, setExpandedProject] = useState(null);
 
-  useEffect(() => {
-    setLocalData(portfolioData);
-  }, [portfolioData]);
+  useEffect(() => { setLocalData(portfolioData); }, [portfolioData]);
 
   const handleLogin = (e) => {
     e.preventDefault();
-    if (password === DASHBOARD_PASSWORD) {
-      setIsAuthorized(true);
-      setLoginError('');
-    } else {
-      setLoginError('Invalid access credentials.');
-    }
+    if (password === DASHBOARD_PASSWORD) { setIsAuthorized(true); setLoginError(''); }
+    else setLoginError('Invalid access credentials.');
   };
 
   const handleSave = () => {
@@ -35,73 +119,126 @@ const Dashboard = () => {
     setTimeout(() => setSaveStatus(''), 3000);
   };
 
-  const updatePersonalInfo = (field, value) => {
-    setLocalData({
-      ...localData,
-      personalInfo: { ...localData.personalInfo, [field]: value }
-    });
-  };
-
-  const updateSocials = (field, value) => {
-    setLocalData({
-      ...localData,
-      personalInfo: {
-        ...localData.personalInfo,
-        socials: { ...localData.personalInfo.socials, [field]: value }
+  // ── Generic helpers ──────────────────────────────────────────────────────────
+  const setField = (path, value) => {
+    const keys = path.split('.');
+    setLocalData(prev => {
+      const next = { ...prev };
+      let cur = next;
+      for (let i = 0; i < keys.length - 1; i++) {
+        cur[keys[i]] = Array.isArray(cur[keys[i]]) ? [...cur[keys[i]]] : { ...cur[keys[i]] };
+        cur = cur[keys[i]];
       }
+      cur[keys[keys.length - 1]] = value;
+      return next;
     });
   };
 
-  const updateFooter = (field, value) => {
-    setLocalData({
-      ...localData,
-      footer: { ...localData.footer, [field]: value }
-    });
-  };
+  const updatePersonalInfo = (field, value) =>
+    setLocalData(p => ({ ...p, personalInfo: { ...p.personalInfo, [field]: value } }));
 
-  const addItem = (listName, newItem) => {
-    setLocalData({
-      ...localData,
-      [listName]: [...localData[listName], { ...newItem, id: Date.now() }]
-    });
-  };
+  const updateFooter = (field, value) =>
+    setLocalData(p => ({ ...p, footer: { ...p.footer, [field]: value } }));
 
-  const removeItem = (listName, id) => {
-    setLocalData({
-      ...localData,
-      [listName]: localData[listName].filter(item => item.id !== id)
-    });
-  };
+  const addItem = (listName, newItem) =>
+    setLocalData(p => ({ ...p, [listName]: [...p[listName], { ...newItem, id: Date.now() }] }));
 
-  const updateListItem = (listName, id, field, value) => {
-    setLocalData({
-      ...localData,
-      [listName]: localData[listName].map(item => 
-        item.id === id ? { ...item, [field]: value } : item
-      )
-    });
-  };
+  const removeItem = (listName, id) =>
+    setLocalData(p => ({ ...p, [listName]: p[listName].filter(item => item.id !== id) }));
 
+  const updateListItem = (listName, id, field, value) =>
+    setLocalData(p => ({
+      ...p,
+      [listName]: p[listName].map(item => item.id === id ? { ...item, [field]: value } : item)
+    }));
+
+  // ── Focus helpers ────────────────────────────────────────────────────────────
+  const addFocus = () =>
+    setLocalData(p => ({ ...p, focus: [...p.focus, { id: Date.now(), label: '', enabled: true }] }));
+
+  const removeFocus = (id) =>
+    setLocalData(p => ({ ...p, focus: p.focus.filter(f => f.id !== id) }));
+
+  const updateFocus = (id, field, value) =>
+    setLocalData(p => ({ ...p, focus: p.focus.map(f => f.id === id ? { ...f, [field]: value } : f) }));
+
+  // ── Facts helpers ────────────────────────────────────────────────────────────
+  const addFact = () =>
+    setLocalData(p => ({ ...p, facts: [...p.facts, ''] }));
+
+  const removeFact = (i) =>
+    setLocalData(p => ({ ...p, facts: p.facts.filter((_, idx) => idx !== i) }));
+
+  const updateFact = (i, value) =>
+    setLocalData(p => { const f = [...p.facts]; f[i] = value; return { ...p, facts: f }; });
+
+  // ── Project section helpers ──────────────────────────────────────────────────
+  const addProjectSection = (projectId) =>
+    setLocalData(p => ({
+      ...p,
+      projects: p.projects.map(proj => proj.id === projectId ? {
+        ...proj,
+        sections: [...(proj.sections || []), { id: Date.now(), heading: 'New Section', content: '' }]
+      } : proj)
+    }));
+
+  const removeProjectSection = (projectId, sectionId) =>
+    setLocalData(p => ({
+      ...p,
+      projects: p.projects.map(proj => proj.id === projectId ? {
+        ...proj,
+        sections: (proj.sections || []).filter(s => s.id !== sectionId)
+      } : proj)
+    }));
+
+  const updateProjectSection = (projectId, sectionId, field, value) =>
+    setLocalData(p => ({
+      ...p,
+      projects: p.projects.map(proj => proj.id === projectId ? {
+        ...proj,
+        sections: (proj.sections || []).map(s => s.id === sectionId ? { ...s, [field]: value } : s)
+      } : proj)
+    }));
+
+  const addGalleryImage = (projectId) =>
+    setLocalData(p => ({
+      ...p,
+      projects: p.projects.map(proj => proj.id === projectId ? {
+        ...proj,
+        gallery: [...(proj.gallery || []), '']
+      } : proj)
+    }));
+
+  const updateGalleryImage = (projectId, idx, value) =>
+    setLocalData(p => ({
+      ...p,
+      projects: p.projects.map(proj => proj.id === projectId ? {
+        ...proj,
+        gallery: (proj.gallery || []).map((url, i) => i === idx ? value : url)
+      } : proj)
+    }));
+
+  const removeGalleryImage = (projectId, idx) =>
+    setLocalData(p => ({
+      ...p,
+      projects: p.projects.map(proj => proj.id === projectId ? {
+        ...proj,
+        gallery: (proj.gallery || []).filter((_, i) => i !== idx)
+      } : proj)
+    }));
+
+  // ── Login screen ─────────────────────────────────────────────────────────────
   if (!isAuthorized) {
     return (
       <div className="login-screen">
-        <motion.div 
-          className="login-card"
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-        >
+        <motion.div className="login-card" initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}>
           <div className="login-header">
             <div className="brand-dot"></div>
             <h1>PORTFOLIO ACCESS</h1>
           </div>
           <form onSubmit={handleLogin}>
-            <input 
-              type="password" 
-              placeholder="ENTER PASSCODE" 
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              autoFocus
-            />
+            <input type="password" placeholder="ENTER PASSCODE" value={password}
+              onChange={e => setPassword(e.target.value)} autoFocus />
             {loginError && <p className="error-msg">{loginError}</p>}
             <button type="submit">AUTHORIZE</button>
           </form>
@@ -110,9 +247,20 @@ const Dashboard = () => {
     );
   }
 
+  const tabs = [
+    { id: 'general', label: 'General' },
+    { id: 'focus', label: 'Focus / Skills' },
+    { id: 'facts', label: 'Facts' },
+    { id: 'experience', label: 'Experience' },
+    { id: 'certifications', label: 'Certifications' },
+    { id: 'work', label: 'Projects' },
+  ];
+
   return (
     <div className="dashboard-wrapper">
       <div className="dashboard-grid">
+
+        {/* ── Sidebar ── */}
         <aside className="dashboard-sidebar">
           <div className="sidebar-brand">
             <Link to="/" className="back-to-site">← Back to Website</Link>
@@ -121,87 +269,65 @@ const Dashboard = () => {
               <span>DASHBOARD</span>
             </div>
           </div>
-          
           <nav className="sidebar-nav">
-            {[
-              { id: 'general', label: 'General' },
-              { id: 'experience', label: 'Experience' },
-              { id: 'certifications', label: 'Certifications' },
-              { id: 'work', label: 'Projects' }
-            ].map(tab => (
-              <button 
-                key={tab.id}
+            {tabs.map(tab => (
+              <button key={tab.id}
                 className={`sidebar-link ${activeTab === tab.id ? 'active' : ''}`}
-                onClick={() => setActiveTab(tab.id)}
-              >
+                onClick={() => setActiveTab(tab.id)}>
                 <span className="link-label">{tab.label}</span>
               </button>
             ))}
           </nav>
-
           <div className="sidebar-footer">
             <button className="premium-save-btn" onClick={handleSave}>
-              {saveStatus ? 'SAVED' : 'SAVE CHANGES'}
+              {saveStatus ? 'SAVED ✓' : 'SAVE CHANGES'}
             </button>
             {saveStatus && <p className="status-msg">{saveStatus}</p>}
           </div>
         </aside>
 
+        {/* ── Main Content ── */}
         <main className="dashboard-main">
           <header className="content-header">
             <div className="header-meta">
               <span className="meta-tag">SYSTEM / {activeTab.toUpperCase()}</span>
-              <h1>{activeTab.charAt(0).toUpperCase() + activeTab.slice(1)} Configuration</h1>
+              <h1>{tabs.find(t => t.id === activeTab)?.label} Configuration</h1>
             </div>
           </header>
 
           <div className="scroll-content">
             <AnimatePresence mode="wait">
+
+              {/* ════════════════════════════════ GENERAL TAB ════════════════════════════════ */}
               {activeTab === 'general' && (
-                <motion.div 
-                  key="general"
-                  initial={{ opacity: 0, y: 10 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, y: -10 }}
-                  className="config-section"
-                >
+                <motion.div key="general" initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -10 }} className="config-section">
                   <div className="config-grid">
+
                     <div className="config-card full">
                       <h3>Core Identity</h3>
                       <div className="input-row">
                         <div className="input-group">
                           <label>Display Name</label>
-                          <input 
-                            type="text" 
-                            value={localData.personalInfo.name} 
-                            onChange={(e) => updatePersonalInfo('name', e.target.value)}
-                          />
+                          <input type="text" value={localData.personalInfo.name}
+                            onChange={e => updatePersonalInfo('name', e.target.value)} />
                         </div>
                         <div className="input-group">
                           <label>Professional Role</label>
-                          <input 
-                            type="text" 
-                            value={localData.personalInfo.role} 
-                            onChange={(e) => updatePersonalInfo('role', e.target.value)}
-                          />
+                          <input type="text" value={localData.personalInfo.role}
+                            onChange={e => updatePersonalInfo('role', e.target.value)} />
                         </div>
                       </div>
                       <div className="input-row">
                         <div className="input-group">
                           <label>Contact Email</label>
-                          <input 
-                            type="email" 
-                            value={localData.personalInfo.email} 
-                            onChange={(e) => updatePersonalInfo('email', e.target.value)}
-                          />
+                          <input type="email" value={localData.personalInfo.email}
+                            onChange={e => updatePersonalInfo('email', e.target.value)} />
                         </div>
                         <div className="input-group">
                           <label>Portrait Asset URL</label>
-                          <input 
-                            type="text" 
-                            value={localData.personalInfo.portrait} 
-                            onChange={(e) => updatePersonalInfo('portrait', e.target.value)}
-                          />
+                          <input type="text" value={localData.personalInfo.portrait}
+                            onChange={e => updatePersonalInfo('portrait', e.target.value)} />
                         </div>
                       </div>
                     </div>
@@ -209,17 +335,15 @@ const Dashboard = () => {
                     <div className="config-card full">
                       <h3>Resume & Assets</h3>
                       <div className="input-group">
-                        <label>Resume File URL (PDF/Link)</label>
+                        <label>Resume File URL (PDF / Link)</label>
                         <div className="input-with-action">
-                          <input 
-                            type="text" 
-                            value={localData.personalInfo.resumeUrl || ''} 
+                          <input type="text" value={localData.personalInfo.resumeUrl || ''}
                             placeholder="/resume.pdf"
-                            onChange={(e) => updatePersonalInfo('resumeUrl', e.target.value)}
-                          />
-                          <a href={localData.personalInfo.resumeUrl} target="_blank" rel="noreferrer" className="preview-link">Verify link</a>
+                            onChange={e => updatePersonalInfo('resumeUrl', e.target.value)} />
+                          <a href={localData.personalInfo.resumeUrl} target="_blank" rel="noreferrer"
+                            className="preview-link">Verify link</a>
                         </div>
-                        <p className="input-hint">This link will sync with the 'Resume' button in your site menu.</p>
+                        <p className="input-hint">This link syncs with the 'Resume' button in your site menu.</p>
                       </div>
                     </div>
 
@@ -228,15 +352,12 @@ const Dashboard = () => {
                       {localData.personalInfo.bio.map((para, index) => (
                         <div key={index} className="input-group">
                           <label>Paragraph {index + 1}</label>
-                          <textarea 
-                            value={para} 
-                            rows="4"
-                            onChange={(e) => {
+                          <textarea value={para} rows="4"
+                            onChange={e => {
                               const newBio = [...localData.personalInfo.bio];
                               newBio[index] = e.target.value;
                               updatePersonalInfo('bio', newBio);
-                            }}
-                          />
+                            }} />
                         </div>
                       ))}
                     </div>
@@ -247,11 +368,14 @@ const Dashboard = () => {
                         {Object.entries(localData.personalInfo.socials).map(([platform, url]) => (
                           <div key={platform} className="input-group">
                             <label>{platform}</label>
-                            <input 
-                              type="text" 
-                              value={url} 
-                              onChange={(e) => updateSocials(platform, e.target.value)}
-                            />
+                            <input type="text" value={url}
+                              onChange={e => setLocalData(p => ({
+                                ...p,
+                                personalInfo: {
+                                  ...p.personalInfo,
+                                  socials: { ...p.personalInfo.socials, [platform]: e.target.value }
+                                }
+                              }))} />
                           </div>
                         ))}
                       </div>
@@ -261,47 +385,123 @@ const Dashboard = () => {
                       <h3>Global Footer</h3>
                       <div className="input-group">
                         <label>Location / Address</label>
-                        <input 
-                          type="text" 
-                          value={localData.footer.address} 
-                          onChange={(e) => updateFooter('address', e.target.value)}
-                        />
+                        <input type="text" value={localData.footer.address}
+                          onChange={e => updateFooter('address', e.target.value)} />
                       </div>
                       <div className="input-group">
                         <label>Brand Tagline</label>
-                        <input 
-                          type="text" 
-                          value={localData.footer.tagline} 
-                          onChange={(e) => updateFooter('tagline', e.target.value)}
-                        />
+                        <input type="text" value={localData.footer.tagline}
+                          onChange={e => updateFooter('tagline', e.target.value)} />
                       </div>
                     </div>
                   </div>
                 </motion.div>
               )}
 
+              {/* ════════════════════════════════ FOCUS / SKILLS TAB ═════════════════════════ */}
+              {activeTab === 'focus' && (
+                <motion.div key="focus" initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -10 }} className="config-section">
+                  <div className="section-header-row">
+                    <div>
+                      <h2>Focus / Skills</h2>
+                      <p className="section-hint">These appear on your Home page. Toggle to show or hide each item.</p>
+                    </div>
+                    <button className="ghost-add-btn" onClick={addFocus}>+ ADD SKILL</button>
+                  </div>
+                  <div className="focus-stack">
+                    {(localData.focus || []).map((item, index) => (
+                      <div key={item.id} className="focus-row-card">
+                        <span className="drag-handle">⣿</span>
+                        <input className="focus-label-input" type="text" value={item.label}
+                          placeholder="e.g. Brand Experience"
+                          onChange={e => updateFocus(item.id, 'label', e.target.value)} />
+                        <div className="focus-controls">
+                          <span className={`toggle-label ${item.enabled ? 'enabled' : 'disabled'}`}>
+                            {item.enabled ? 'Visible' : 'Hidden'}
+                          </span>
+                          <Toggle checked={item.enabled} onChange={v => updateFocus(item.id, 'enabled', v)} />
+                          <button className="row-delete-btn" onClick={() => removeFocus(item.id)}>×</button>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                  <p className="input-hint" style={{ marginTop: '1rem' }}>
+                    Hidden items stay in your data but won't appear on the website.
+                  </p>
+                </motion.div>
+              )}
+
+              {/* ════════════════════════════════ FACTS TAB ══════════════════════════════════ */}
+              {activeTab === 'facts' && (
+                <motion.div key="facts" initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -10 }} className="config-section">
+                  <div className="section-header-row">
+                    <div>
+                      <h2>Facts Section</h2>
+                      <p className="section-hint">Paragraphs displayed in the Facts section on your Home page.</p>
+                    </div>
+                    <button className="ghost-add-btn" onClick={addFact}>+ ADD PARAGRAPH</button>
+                  </div>
+                  <div className="facts-stack">
+                    {(localData.facts || []).map((para, i) => (
+                      <div key={i} className="facts-row-card">
+                        <div className="facts-row-header">
+                          <span className="facts-label">Paragraph {i + 1}</span>
+                          <button className="row-delete-btn" onClick={() => removeFact(i)}>× Remove</button>
+                        </div>
+                        <textarea value={para} rows="5"
+                          placeholder="Enter paragraph text..."
+                          onChange={e => updateFact(i, e.target.value)} />
+                      </div>
+                    ))}
+                  </div>
+                </motion.div>
+              )}
+
+              {/* ════════════════════════════════ EXPERIENCE TAB ═════════════════════════════ */}
               {activeTab === 'experience' && (
-                <motion.div 
-                  key="experience"
-                  initial={{ opacity: 0, y: 10 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, y: -10 }}
-                  className="config-section"
-                >
+                <motion.div key="experience" initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -10 }} className="config-section">
                   <div className="section-header-row">
                     <h2>Experience Timeline</h2>
-                    <button className="ghost-add-btn" onClick={() => addItem('experiences', { company: '', role: '', period: '', icon: '💼' })}>
+                    <button className="ghost-add-btn"
+                      onClick={() => addItem('experiences', { company: '', role: '', logo: '', period: '' })}>
                       + NEW ENTRY
                     </button>
                   </div>
                   <div className="experience-stack">
-                    {localData.experiences.map((exp) => (
-                      <div key={exp.id} className="item-row-card">
+                    {localData.experiences.map(exp => (
+                      <div key={exp.id} className="item-row-card exp-card">
+                        <div className="exp-logo-col">
+                          <div className="logo-preview-box">
+                            {exp.logo
+                              ? <img src={exp.logo} alt={exp.company} className="logo-thumb-lg" />
+                              : <div className="logo-placeholder">{exp.company?.[0] || '?'}</div>
+                            }
+                          </div>
+                          <div className="input-group" style={{ flex: 1 }}>
+                            <label>Company Logo URL</label>
+                            <LogoField value={exp.logo || ''}
+                              onChange={v => updateListItem('experiences', exp.id, 'logo', v)} />
+                          </div>
+                        </div>
                         <div className="item-main-fields">
-                          <input type="text" value={exp.company} placeholder="Organization" onChange={(e) => updateListItem('experiences', exp.id, 'company', e.target.value)} />
-                          <input type="text" value={exp.role} placeholder="Specialization" onChange={(e) => updateListItem('experiences', exp.id, 'role', e.target.value)} />
-                          <input type="text" value={exp.period} placeholder="Timeframe" onChange={(e) => updateListItem('experiences', exp.id, 'period', e.target.value)} />
-                          <input type="text" value={exp.icon} placeholder="Logo URL" onChange={(e) => updateListItem('experiences', exp.id, 'icon', e.target.value)} />
+                          <div className="input-group">
+                            <label>Organization</label>
+                            <input type="text" value={exp.company} placeholder="Company name"
+                              onChange={e => updateListItem('experiences', exp.id, 'company', e.target.value)} />
+                          </div>
+                          <div className="input-group">
+                            <label>Role / Specialization</label>
+                            <input type="text" value={exp.role} placeholder="Your role"
+                              onChange={e => updateListItem('experiences', exp.id, 'role', e.target.value)} />
+                          </div>
+                          <div className="input-group">
+                            <label>Period</label>
+                            <input type="text" value={exp.period} placeholder="e.g. JAN 2021 – DEC 2022"
+                              onChange={e => updateListItem('experiences', exp.id, 'period', e.target.value)} />
+                          </div>
                         </div>
                         <button className="row-delete-btn" onClick={() => removeItem('experiences', exp.id)}>×</button>
                       </div>
@@ -310,28 +510,49 @@ const Dashboard = () => {
                 </motion.div>
               )}
 
+              {/* ════════════════════════════════ CERTIFICATIONS TAB ═════════════════════════ */}
               {activeTab === 'certifications' && (
-                <motion.div 
-                  key="certifications"
-                  initial={{ opacity: 0, y: 10 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, y: -10 }}
-                  className="config-section"
-                >
+                <motion.div key="certifications" initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -10 }} className="config-section">
                   <div className="section-header-row">
-                    <h2>Validations & Certs</h2>
-                    <button className="ghost-add-btn" onClick={() => addItem('certifications', { name: '', issuer: '', link: '', icon: '📜' })}>
+                    <h2>Certifications</h2>
+                    <button className="ghost-add-btn"
+                      onClick={() => addItem('certifications', { name: '', issuer: '', logo: '', link: '' })}>
                       + NEW ENTRY
                     </button>
                   </div>
                   <div className="experience-stack">
-                    {localData.certifications.map((cert) => (
-                      <div key={cert.id} className="item-row-card">
+                    {localData.certifications.map(cert => (
+                      <div key={cert.id} className="item-row-card exp-card">
+                        <div className="exp-logo-col">
+                          <div className="logo-preview-box">
+                            {cert.logo
+                              ? <img src={cert.logo} alt={cert.issuer} className="logo-thumb-lg" />
+                              : <div className="logo-placeholder">{cert.issuer?.[0] || '?'}</div>
+                            }
+                          </div>
+                          <div className="input-group" style={{ flex: 1 }}>
+                            <label>Issuer Logo URL</label>
+                            <LogoField value={cert.logo || ''}
+                              onChange={v => updateListItem('certifications', cert.id, 'logo', v)} />
+                          </div>
+                        </div>
                         <div className="item-main-fields">
-                          <input type="text" value={cert.name} placeholder="Certification Name" onChange={(e) => updateListItem('certifications', cert.id, 'name', e.target.value)} />
-                          <input type="text" value={cert.issuer} placeholder="Issuing Body" onChange={(e) => updateListItem('certifications', cert.id, 'issuer', e.target.value)} />
-                          <input type="text" value={cert.link} placeholder="Validation Link" onChange={(e) => updateListItem('certifications', cert.id, 'link', e.target.value)} />
-                          <input type="text" value={cert.icon} placeholder="Logo URL" onChange={(e) => updateListItem('certifications', cert.id, 'icon', e.target.value)} />
+                          <div className="input-group">
+                            <label>Certification Name</label>
+                            <input type="text" value={cert.name} placeholder="Certificate title"
+                              onChange={e => updateListItem('certifications', cert.id, 'name', e.target.value)} />
+                          </div>
+                          <div className="input-group">
+                            <label>Issuing Body</label>
+                            <input type="text" value={cert.issuer} placeholder="e.g. Google, HubSpot"
+                              onChange={e => updateListItem('certifications', cert.id, 'issuer', e.target.value)} />
+                          </div>
+                          <div className="input-group">
+                            <label>Validation Link</label>
+                            <input type="text" value={cert.link} placeholder="https://..."
+                              onChange={e => updateListItem('certifications', cert.id, 'link', e.target.value)} />
+                          </div>
                         </div>
                         <button className="row-delete-btn" onClick={() => removeItem('certifications', cert.id)}>×</button>
                       </div>
@@ -340,55 +561,169 @@ const Dashboard = () => {
                 </motion.div>
               )}
 
+              {/* ════════════════════════════════ PROJECTS TAB ═══════════════════════════════ */}
               {activeTab === 'work' && (
-                <motion.div 
-                  key="work"
-                  initial={{ opacity: 0, y: 10 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, y: -10 }}
-                  className="config-section"
-                >
+                <motion.div key="work" initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -10 }} className="config-section">
                   <div className="section-header-row">
                     <h2>Project Portfolio</h2>
-                    <button className="ghost-add-btn" onClick={() => addItem('projects', { title: '', category: 'Growth', image: '', description: '', year: '2024' })}>
+                    <button className="ghost-add-btn"
+                      onClick={() => addItem('projects', {
+                        title: '', category: 'Growth', image: '', year: '2024',
+                        description: '', driveLink: '', notionLink: '',
+                        gallery: [],
+                        sections: [
+                          { id: Date.now() + 1, heading: 'Overview', content: '' },
+                          { id: Date.now() + 2, heading: 'The Challenge', content: '' },
+                          { id: Date.now() + 3, heading: 'Solution', content: '' },
+                          { id: Date.now() + 4, heading: 'Results', content: '' },
+                        ]
+                      })}>
                       + NEW PROJECT
                     </button>
                   </div>
+
                   <div className="projects-grid-layout">
-                    {localData.projects.map((project) => (
+                    {localData.projects.map(project => (
                       <div key={project.id} className="project-detail-card">
-                        <div className="card-controls">
-                          <button className="card-delete" onClick={() => removeItem('projects', project.id)}>REMOVE</button>
-                        </div>
-                        <div className="card-body">
-                          <div className="input-group">
-                            <label>Project Title</label>
-                            <input type="text" value={project.title} onChange={(e) => updateListItem('projects', project.id, 'title', e.target.value)} />
-                          </div>
-                          <div className="input-group">
-                            <label>Visual Identity (Image URL)</label>
-                            <input type="text" value={project.image} onChange={(e) => updateListItem('projects', project.id, 'image', e.target.value)} />
-                          </div>
-                          <div className="input-row">
-                            <div className="input-group">
-                              <label>Classification</label>
-                              <input type="text" value={project.category} onChange={(e) => updateListItem('projects', project.id, 'category', e.target.value)} />
-                            </div>
-                            <div className="input-group">
-                              <label>Year</label>
-                              <input type="text" value={project.year} onChange={(e) => updateListItem('projects', project.id, 'year', e.target.value)} />
+
+                        {/* Project header / accordion toggle */}
+                        <div className="project-card-header"
+                          onClick={() => setExpandedProject(expandedProject === project.id ? null : project.id)}>
+                          <div className="proj-header-left">
+                            {project.image && <img src={project.image} alt={project.title} className="proj-thumb" />}
+                            <div>
+                              <span className="proj-cat-tag">{project.category}</span>
+                              <h3>{project.title || 'Untitled Project'}</h3>
+                              <span className="proj-year">{project.year}</span>
                             </div>
                           </div>
-                          <div className="input-group">
-                            <label>Outcome Summary</label>
-                            <textarea rows="3" value={project.description} onChange={(e) => updateListItem('projects', project.id, 'description', e.target.value)} />
+                          <div className="proj-header-right">
+                            <button className="card-delete" onClick={e => { e.stopPropagation(); removeItem('projects', project.id); }}>
+                              REMOVE
+                            </button>
+                            <span className="expand-icon">{expandedProject === project.id ? '▼' : '▶'}</span>
                           </div>
                         </div>
+
+                        {/* Expanded editor */}
+                        <AnimatePresence>
+                          {expandedProject === project.id && (
+                            <motion.div className="project-editor"
+                              initial={{ height: 0, opacity: 0 }}
+                              animate={{ height: 'auto', opacity: 1 }}
+                              exit={{ height: 0, opacity: 0 }}
+                              transition={{ duration: 0.3 }}>
+
+                              {/* ── Basic Info ── */}
+                              <div className="editor-block">
+                                <h4 className="editor-block-title">Basic Info</h4>
+                                <div className="input-group">
+                                  <label>Project Title</label>
+                                  <input type="text" value={project.title}
+                                    onChange={e => updateListItem('projects', project.id, 'title', e.target.value)} />
+                                </div>
+                                <div className="input-row">
+                                  <div className="input-group">
+                                    <label>Category / Tag</label>
+                                    <input type="text" value={project.category}
+                                      onChange={e => updateListItem('projects', project.id, 'category', e.target.value)} />
+                                  </div>
+                                  <div className="input-group">
+                                    <label>Year</label>
+                                    <input type="text" value={project.year}
+                                      onChange={e => updateListItem('projects', project.id, 'year', e.target.value)} />
+                                  </div>
+                                </div>
+                                <div className="input-group">
+                                  <label>Cover Image URL</label>
+                                  <input type="text" value={project.image}
+                                    onChange={e => updateListItem('projects', project.id, 'image', e.target.value)} />
+                                </div>
+                                <div className="input-group">
+                                  <label>Short Description (card summary)</label>
+                                  <textarea rows="2" value={project.description}
+                                    onChange={e => updateListItem('projects', project.id, 'description', e.target.value)} />
+                                </div>
+                              </div>
+
+                              {/* ── Resource Links ── */}
+                              <div className="editor-block">
+                                <h4 className="editor-block-title">Resource Links</h4>
+                                <div className="input-row">
+                                  <div className="input-group">
+                                    <label>Google Drive Link</label>
+                                    <input type="text" value={project.driveLink || ''} placeholder="https://drive.google.com/..."
+                                      onChange={e => updateListItem('projects', project.id, 'driveLink', e.target.value)} />
+                                  </div>
+                                  <div className="input-group">
+                                    <label>Notion Link</label>
+                                    <input type="text" value={project.notionLink || ''} placeholder="https://notion.so/..."
+                                      onChange={e => updateListItem('projects', project.id, 'notionLink', e.target.value)} />
+                                  </div>
+                                </div>
+                              </div>
+
+                              {/* ── Content Sections ── */}
+                              <div className="editor-block">
+                                <div className="editor-block-header">
+                                  <h4 className="editor-block-title">Content Sections</h4>
+                                  <button className="ghost-add-btn sm" onClick={() => addProjectSection(project.id)}>
+                                    + Add Section
+                                  </button>
+                                </div>
+                                {(project.sections || []).map((section, si) => (
+                                  <div key={section.id} className="content-section-card">
+                                    <div className="section-card-header">
+                                      <input className="section-heading-input" type="text"
+                                        value={section.heading} placeholder="Section Heading"
+                                        onChange={e => updateProjectSection(project.id, section.id, 'heading', e.target.value)} />
+                                      <button className="row-delete-btn"
+                                        onClick={() => removeProjectSection(project.id, section.id)}>
+                                        × Remove
+                                      </button>
+                                    </div>
+                                    <RichEditor
+                                      value={section.content}
+                                      onChange={v => updateProjectSection(project.id, section.id, 'content', v)}
+                                    />
+                                  </div>
+                                ))}
+                              </div>
+
+                              {/* ── Gallery ── */}
+                              <div className="editor-block">
+                                <div className="editor-block-header">
+                                  <h4 className="editor-block-title">Gallery Images</h4>
+                                  <button className="ghost-add-btn sm" onClick={() => addGalleryImage(project.id)}>
+                                    + Add Image
+                                  </button>
+                                </div>
+                                {(project.gallery || []).length === 0 && (
+                                  <p className="input-hint">No gallery images yet. Add image URLs above.</p>
+                                )}
+                                <div className="gallery-url-list">
+                                  {(project.gallery || []).map((url, gi) => (
+                                    <div key={gi} className="gallery-url-row">
+                                      {url && <img src={url} alt={`gallery-${gi}`} className="gallery-thumb" />}
+                                      <input type="text" value={url} placeholder="https://..."
+                                        onChange={e => updateGalleryImage(project.id, gi, e.target.value)} />
+                                      <button className="row-delete-btn"
+                                        onClick={() => removeGalleryImage(project.id, gi)}>×</button>
+                                    </div>
+                                  ))}
+                                </div>
+                              </div>
+
+                            </motion.div>
+                          )}
+                        </AnimatePresence>
                       </div>
                     ))}
                   </div>
                 </motion.div>
               )}
+
             </AnimatePresence>
           </div>
         </main>

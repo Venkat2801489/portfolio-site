@@ -1,0 +1,261 @@
+/* ===========================
+   PROFILE PAGE — Clean Rebuild
+   =========================== */
+
+.prof-page {
+  min-height: 100vh;
+}
+
+/* ---- Hero (Portrait + Identity) ---- */
+.prof-hero {
+  padding-top: 100px;
+  padding-bottom: 60px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.prof-hero__inner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2rem;
+  text-align: center;
+}
+
+.prof-hero__img-wrap {
+  width: 320px;
+  height: 320px;
+  border-radius: 24px;
+  overflow: hidden;
+  flex-shrink: 0;
+  box-shadow: 0 30px 80px rgba(0, 0, 0, 0.8);
+}
+
+.prof-hero__img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center top;
+  display: block;
+}
+
+.prof-hero__identity {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.prof-hero__name {
+  font-size: clamp(32px, 5vw, 56px);
+  font-weight: 800;
+  letter-spacing: -2px;
+  color: #fff;
+  margin: 0;
+}
+
+.prof-hero__role {
+  font-size: 15px;
+  font-weight: 300;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.45);
+  margin: 0;
+}
+
+/* ---- Body Content Grid ---- */
+.prof-body {
+  padding: 80px 0 120px;
+}
+
+.prof-grid {
+  display: grid;
+  grid-template-columns: 1.4fr 1fr;
+  gap: 6rem;
+  align-items: start;
+}
+
+/* ---- Columns ---- */
+.prof-col {
+  display: flex;
+  flex-direction: column;
+  gap: 3rem;
+}
+
+/* ---- Blocks (Experience / Cert sections) ---- */
+.prof-block {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+}
+
+.prof-block__label {
+  display: block;
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.2);
+  padding-bottom: 0.8rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+  margin-bottom: 0.4rem;
+}
+
+/* ---- List + Items ---- */
+.prof-list {
+  display: flex;
+  flex-direction: column;
+}
+
+.prof-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1rem 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+  text-decoration: none;
+  color: inherit;
+  transition: background 0.2s ease, padding 0.2s ease;
+}
+
+.prof-item--link:hover {
+  background: rgba(255, 255, 255, 0.03);
+  padding-left: 0.6rem;
+  padding-right: 0.6rem;
+  margin-left: -0.6rem;
+  margin-right: -0.6rem;
+  border-radius: 8px;
+}
+
+.prof-item__left {
+  display: flex;
+  align-items: center;
+  gap: 1.2rem;
+}
+
+.prof-item__icon {
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.prof-emoji {
+  font-size: 24px;
+  line-height: 1;
+}
+
+.prof-org-logo {
+  width: 32px;
+  height: 32px;
+  object-fit: contain;
+  border-radius: 6px;
+}
+
+.prof-icon-placeholder {
+  width: 32px;
+  height: 32px;
+  border-radius: 6px;
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.prof-item__info {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.prof-item__company {
+  font-size: 17px;
+  font-weight: 600;
+  color: #fff;
+  margin: 0;
+  line-height: 1.2;
+}
+
+.prof-item__role {
+  font-size: 13px;
+  color: rgba(255, 255, 255, 0.5);
+  margin: 0;
+}
+
+.prof-item__pill {
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  padding: 6px 14px;
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  border-radius: 100px;
+  color: rgba(255, 255, 255, 0.8);
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+.prof-item__view {
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--accent-color, #0088ff);
+  opacity: 0.8;
+  transition: opacity 0.2s ease;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+.prof-item--link:hover .prof-item__view {
+  opacity: 1;
+}
+
+/* ---- Bio / About ---- */
+.prof-bio {
+  display: flex;
+  flex-direction: column;
+  gap: 1.4rem;
+  margin-top: 0.4rem;
+}
+
+.prof-bio__para {
+  font-size: 17px;
+  line-height: 1.85;
+  color: rgba(255, 255, 255, 0.65);
+  margin: 0;
+}
+
+.prof-bio__para strong {
+  color: #fff;
+  font-weight: 700;
+}
+
+/* ---- Responsive ---- */
+@media (max-width: 1100px) {
+  .prof-grid {
+    grid-template-columns: 1fr;
+    gap: 4rem;
+  }
+}
+
+@media (max-width: 640px) {
+  .prof-hero {
+    padding-top: 80px;
+    padding-bottom: 40px;
+  }
+
+  .prof-hero__img-wrap {
+    width: 240px;
+    height: 240px;
+  }
+
+  .prof-hero__name {
+    font-size: 32px;
+  }
+
+  .prof-item {
+    flex-wrap: wrap;
+    gap: 0.6rem;
+  }
+
+  .prof-item__pill {
+    align-self: flex-start;
+  }
+}

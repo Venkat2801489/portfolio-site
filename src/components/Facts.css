@@ -1,0 +1,38 @@
+.facts {
+  padding: 10rem 0 20rem;
+}
+
+.facts__content {
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  gap: 2rem;
+}
+
+.facts__label {
+  font-size: 14px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  font-weight: 300;
+  color: rgba(255, 255, 255, 0.6);
+}
+
+.facts__text {
+  display: flex;
+  flex-direction: column;
+  gap: 2.5rem;
+}
+
+.facts__paragraph {
+  font-size: clamp(18px, 1.5vw, 22px);
+  line-height: 1.6;
+  font-weight: 300;
+  color: rgba(255, 255, 255, 0.9);
+  max-width: 800px;
+}
+
+@media (max-width: 768px) {
+  .facts__content {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+}

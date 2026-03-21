@@ -1,0 +1,58 @@
+.hero {
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.hero__content {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+}
+
+.hero__image-container {
+  position: relative;
+  width: 100%;
+  max-width: 800px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.hero__portrait {
+  width: 120%;
+  height: auto;
+  max-height: 95vh;
+  object-fit: contain;
+  filter: brightness(1.1) contrast(1.1);
+  transform: translateY(5%);
+}
+
+.hero__title {
+  position: absolute;
+  bottom: 10%;
+  left: 0;
+  right: 0;
+  text-align: center;
+  pointer-events: none;
+}
+
+.hero__year {
+  font-size: 14px;
+  letter-spacing: 4px;
+  font-weight: 300;
+  margin-bottom: 10px;
+  opacity: 0.6;
+}
+
+.hero__main {
+  font-size: clamp(40px, 8vw, 120px);
+  text-transform: uppercase;
+  font-weight: 800;
+  letter-spacing: -2px;
+  line-height: 0.9;
+}

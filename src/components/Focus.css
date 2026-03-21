@@ -1,0 +1,50 @@
+.focus {
+  padding: 15rem 0;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.focus__content {
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  gap: 2rem;
+}
+
+.focus__label {
+  font-size: 14px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  font-weight: 300;
+  color: rgba(255, 255, 255, 0.6);
+}
+
+.focus__list {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.focus__item h2 {
+  font-size: clamp(40px, 8vw, 84px);
+  font-weight: 600;
+  line-height: 1;
+  letter-spacing: -1px;
+  color: #fff;
+  transition: transform 0.3s ease, color 0.3s ease;
+  cursor: default;
+}
+
+.focus__item h2:hover {
+  transform: translateX(20px);
+  color: var(--accent-color);
+}
+
+@media (max-width: 768px) {
+  .focus__content {
+    grid-template-columns: 1fr;
+    gap: 3rem;
+  }
+  
+  .focus__item h2 {
+    font-size: 40px;
+  }
+}

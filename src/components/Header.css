@@ -1,0 +1,72 @@
+.header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 80px;
+  background: rgba(0, 0, 0, 0.8);
+  backdrop-filter: blur(10px);
+  z-index: 100;
+  display: flex;
+  align-items: center;
+}
+
+.header__content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+}
+
+.header__logo .logo-box {
+  width: 32px;
+  height: 32px;
+  border: 1px solid var(--accent-color);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  font-size: 18px;
+  box-shadow: var(--neon-glow);
+}
+
+.header__name h1 {
+  font-size: 14px;
+  letter-spacing: 4px;
+  font-weight: 300;
+  text-transform: uppercase;
+}
+
+.header__nav ul {
+  display: flex;
+  gap: 30px;
+}
+
+.header__nav a {
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  font-weight: 400;
+  transition: all 0.3s ease;
+}
+
+.header__nav a.resume-link {
+  color: var(--accent-color, #00ffcc);
+  font-weight: 600;
+}
+
+.header__nav a.resume-link:hover {
+  animation: resumeBlink 1.5s infinite ease-in-out;
+  text-shadow: 0 0 10px var(--accent-color, #00ffcc);
+}
+
+@keyframes resumeBlink {
+  0% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.6; transform: scale(1.05); }
+  100% { opacity: 1; transform: scale(1); }
+}
+
+.header__extra .extra-icon {
+  font-size: 20px;
+  font-weight: 200;
+}

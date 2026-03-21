@@ -1,0 +1,68 @@
+.profile {
+  padding: 100px 0;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.profile__grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 60px;
+}
+
+.profile__section-title {
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 4px;
+  color: var(--accent-color);
+  margin-bottom: 40px;
+  font-weight: 300;
+}
+
+.profile__item {
+  margin-bottom: 40px;
+}
+
+.profile__year {
+  font-size: 12px;
+  opacity: 0.5;
+  display: block;
+  margin-bottom: 10px;
+}
+
+.profile__role {
+  font-size: 18px;
+  font-weight: 400;
+  margin-bottom: 5px;
+}
+
+.profile__company {
+  font-size: 14px;
+  opacity: 0.7;
+}
+
+.profile__list {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.profile__list li {
+  font-size: 16px;
+  font-weight: 300;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+@media (max-width: 1024px) {
+  .profile__grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 40px;
+  }
+}
+
+@media (max-width: 768px) {
+  .profile__grid {
+    grid-template-columns: 1fr;
+    gap: 40px;
+  }
+}

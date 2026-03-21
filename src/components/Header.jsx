@@ -17,8 +17,8 @@ const Header = () => {
         </div>
         <nav className="header__nav">
           <ul>
-            <li><Link to="/work">Work</Link></li>
-            <li><Link to="/profile">Profile</Link></li>
+            <li><Link to={portfolioData.seo?.pages?.work?.slug || '/work'}>Work</Link></li>
+            <li><Link to={portfolioData.seo?.pages?.profile?.slug || '/profile'}>Profile</Link></li>
             <li>
               <a 
                 href={portfolioData.personalInfo.resumeUrl} 
@@ -30,7 +30,7 @@ const Header = () => {
                 Resume
               </a>
             </li>
-            <li><Link to="/contact">Contact</Link></li>
+            <li><Link to={portfolioData.seo?.pages?.contact?.slug || '/contact'}>Contact</Link></li>
           </ul>
         </nav>
         <div className="header__extra">

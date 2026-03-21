@@ -15,14 +15,14 @@
   background: var(--db-bg-deep);
   color: var(--db-text-main);
   min-height: 100vh;
-  padding-top: var(--db-header-height);
+  /* No padding-top — dashboard has no site header */
   font-family: 'Inter', sans-serif;
 }
 
 .dashboard-grid {
   display: grid;
   grid-template-columns: var(--db-sidebar-width) 1fr;
-  height: calc(100vh - var(--db-header-height));
+  height: 100vh;
   overflow: hidden;
 }
 
@@ -150,6 +150,7 @@
 .dashboard-main {
   display: flex;
   flex-direction: column;
+  overflow: hidden;  /* Required so flex child scroll-content can scroll */
   background: linear-gradient(135deg, #0a0a0a 0%, #0d0d0d 100%);
 }
 
@@ -1003,5 +1004,34 @@
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
   gap: 16px;
+}
+
+/* ── Project Section Reordering ── */
+.content-section-card {
+  transition: transform 0.2s, box-shadow 0.2s, border-color 0.2s;
+  cursor: default;
+}
+
+.content-section-card[draggable="true"]:active {
+  cursor: grabbing;
+  opacity: 0.8;
+  border-color: var(--db-accent-primary);
+  transform: scale(0.99);
+}
+
+.content-section-card .drag-handle {
+  padding: 4px;
+  border-radius: 4px;
+  transition: background 0.2s;
+}
+
+.content-section-card .drag-handle:hover {
+  background: rgba(255, 255, 255, 0.05);
+  color: var(--db-accent-primary);
+}
+
+.content-section-card.dragging {
+  opacity: 0.5;
+  border: 1px dashed var(--db-accent-primary);
 }
 

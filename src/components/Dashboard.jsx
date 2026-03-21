@@ -173,12 +173,17 @@ const Dashboard = () => {
     setLocalData(p => { const f = [...p.facts]; f[i] = value; return { ...p, facts: f }; });
 
   // ── Project section helpers ──────────────────────────────────────────────────
-  const addProjectSection = (projectId) =>
+  const addProjectSection = (projectId, type = 'text') =>
     setLocalData(p => ({
       ...p,
       projects: p.projects.map(proj => proj.id === projectId ? {
         ...proj,
-        sections: [...(proj.sections || []), { id: Date.now(), heading: 'New Section', content: '' }]
+        sections: [...(proj.sections || []), {
+          id: Date.now(),
+          type,
+          heading: type === 'text' ? 'New Text Section' : 'New Image Section',
+          content: ''
+        }]
       } : proj)
     }));
 
@@ -199,6 +204,20 @@ const Dashboard = () => {
         sections: (proj.sections || []).map(s => s.id === sectionId ? { ...s, [field]: value } : s)
       } : proj)
     }));
+
+  const moveProjectSection = (projectId, fromIdx, toIdx) => {
+    if (toIdx < 0 || toIdx >= localData.projects.find(p => p.id === projectId).sections.length) return;
+    setLocalData(p => ({
+      ...p,
+      projects: p.projects.map(proj => {
+        if (proj.id !== projectId) return proj;
+        const sections = [...(proj.sections || [])];
+        const [moved] = sections.splice(fromIdx, 1);
+        sections.splice(toIdx, 0, moved);
+        return { ...proj, sections };
+      })
+    }));
+  };
 
   const addGalleryImage = (projectId) =>
     setLocalData(p => ({
@@ -227,6 +246,28 @@ const Dashboard = () => {
       } : proj)
     }));
 
+  // ── SEO helpers ────────────────────────────────────────────────────────────
+  const updatePageSEO = (pageKey, field, value) =>
+    setLocalData(p => ({
+      ...p,
+      seo: {
+        ...p.seo,
+        pages: {
+          ...p.seo.pages,
+          [pageKey]: { ...p.seo.pages[pageKey], [field]: value }
+        }
+      }
+    }));
+
+  const updateProjectSEO = (projectId, field, value) =>
+    setLocalData(p => ({
+      ...p,
+      projects: p.projects.map(proj => proj.id === projectId ? {
+        ...proj,
+        seo: { ...(proj.seo || {}), [field]: value }
+      } : proj)
+    }));
+
   // ── Login screen ─────────────────────────────────────────────────────────────
   if (!isAuthorized) {
     return (
@@ -249,6 +290,7 @@ const Dashboard = () => {
 
   const tabs = [
     { id: 'general', label: 'General' },
+    { id: 'seo', label: 'SEO / Pages' },
     { id: 'focus', label: 'Focus / Skills' },
     { id: 'facts', label: 'Facts' },
     { id: 'experience', label: 'Experience' },
@@ -394,6 +436,55 @@ const Dashboard = () => {
                           onChange={e => updateFooter('tagline', e.target.value)} />
                       </div>
                     </div>
+                  </div>
+                </motion.div>
+              )}
+
+              {/* ════════════════════════════════ SEO TAB ════════════════════════════════ */}
+              {activeTab === 'seo' && (
+                <motion.div key="seo" initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -10 }} className="config-section">
+                  <div className="section-header-row">
+                    <div>
+                      <h2>SEO & Page Settings</h2>
+                      <p className="section-hint">Manage search engine visibility and professional URL slugs for your core pages.</p>
+                    </div>
+                  </div>
+                  <div className="config-grid">
+                    {Object.entries(localData.seo.pages).map(([key, page]) => (
+                      <div key={key} className="config-card full">
+                        <h3 style={{ textTransform: 'capitalize' }}>{key} Page SEO</h3>
+                        <div className="input-row">
+                          <div className="input-group">
+                            <label>Professional Slug (URL Path)</label>
+                            <input type="text" value={page.slug}
+                              onChange={e => updatePageSEO(key, 'slug', e.target.value)} />
+                          </div>
+                          <div className="input-group">
+                            <label>Title Tag</label>
+                            <input type="text" value={page.title}
+                              onChange={e => updatePageSEO(key, 'title', e.target.value)} />
+                          </div>
+                        </div>
+                        <div className="input-group">
+                          <label>Meta Description</label>
+                          <textarea value={page.description} rows="2"
+                            onChange={e => updatePageSEO(key, 'description', e.target.value)} />
+                        </div>
+                        <div className="input-row">
+                          <div className="input-group">
+                            <label>Keywords (comma separated)</label>
+                            <input type="text" value={page.keywords}
+                              onChange={e => updatePageSEO(key, 'keywords', e.target.value)} />
+                          </div>
+                          <div className="input-group">
+                            <label>Canonical URL</label>
+                            <input type="text" value={page.canonical}
+                              onChange={e => updatePageSEO(key, 'canonical', e.target.value)} />
+                          </div>
+                        </div>
+                      </div>
+                    ))}
                   </div>
                 </motion.div>
               )}
@@ -664,29 +755,105 @@ const Dashboard = () => {
                                 </div>
                               </div>
 
+                              {/* ── Project SEO Settings ── */}
+                              <div className="editor-block">
+                                <div className="editor-block-header">
+                                  <h4 className="editor-block-title">SEO Settings</h4>
+                                </div>
+                                <div className="config-card" style={{ background: 'rgba(255,255,255,0.02)', border: '1px solid var(--db-border-light)', padding: '16px' }}>
+                                  <div className="input-row">
+                                    <div className="input-group">
+                                      <label>Project Slug</label>
+                                      <input type="text" value={project.slug || ''} placeholder="e-g-google-maps-seo"
+                                        onChange={e => setLocalData(p => ({
+                                          ...p,
+                                          projects: p.projects.map(proj => proj.id === project.id ? { ...proj, slug: e.target.value } : proj)
+                                        }))} />
+                                    </div>
+                                    <div className="input-group">
+                                      <label>SEO Title Tag</label>
+                                      <input type="text" value={project.seo?.title || ''}
+                                        onChange={e => updateProjectSEO(project.id, 'title', e.target.value)} />
+                                    </div>
+                                  </div>
+                                  <div className="input-group">
+                                    <label>SEO Meta Description</label>
+                                    <textarea value={project.seo?.description || ''} rows="2"
+                                      onChange={e => updateProjectSEO(project.id, 'description', e.target.value)} />
+                                  </div>
+                                  <div className="input-group">
+                                    <label>SEO Keywords</label>
+                                    <input type="text" value={project.seo?.keywords || ''}
+                                      onChange={e => updateProjectSEO(project.id, 'keywords', e.target.value)} />
+                                  </div>
+                                </div>
+                              </div>
+
                               {/* ── Content Sections ── */}
                               <div className="editor-block">
                                 <div className="editor-block-header">
                                   <h4 className="editor-block-title">Content Sections</h4>
-                                  <button className="ghost-add-btn sm" onClick={() => addProjectSection(project.id)}>
-                                    + Add Section
-                                  </button>
+                                  <div style={{ display: 'flex', gap: '8px' }}>
+                                    <button className="ghost-add-btn sm" onClick={() => addProjectSection(project.id, 'text')}>
+                                      + Add Text
+                                    </button>
+                                    <button className="ghost-add-btn sm" onClick={() => addProjectSection(project.id, 'image')}>
+                                      + Add Image
+                                    </button>
+                                  </div>
                                 </div>
                                 {(project.sections || []).map((section, si) => (
-                                  <div key={section.id} className="content-section-card">
+                                  <div key={section.id} 
+                                    className="content-section-card"
+                                    draggable
+                                    onDragStart={e => e.dataTransfer.setData('text/plain', si)}
+                                    onDragOver={e => e.preventDefault()}
+                                    onDrop={e => {
+                                      e.preventDefault();
+                                      const fromIdx = parseInt(e.dataTransfer.getData('text/plain'));
+                                      moveProjectSection(project.id, fromIdx, si);
+                                    }}
+                                  >
                                     <div className="section-card-header">
-                                      <input className="section-heading-input" type="text"
-                                        value={section.heading} placeholder="Section Heading"
-                                        onChange={e => updateProjectSection(project.id, section.id, 'heading', e.target.value)} />
-                                      <button className="row-delete-btn"
-                                        onClick={() => removeProjectSection(project.id, section.id)}>
-                                        × Remove
-                                      </button>
+                                      <div style={{ display: 'flex', alignItems: 'center', gap: '10px', flex: 1 }}>
+                                        <span className="drag-handle" style={{ cursor: 'grab' }}>⣿</span>
+                                        <input className="section-heading-input" type="text"
+                                          value={section.heading} placeholder={section.type === 'image' ? 'Image Caption (optional)' : 'Section Heading'}
+                                          onChange={e => updateProjectSection(project.id, section.id, 'heading', e.target.value)} />
+                                      </div>
+                                      <div style={{ display: 'flex', gap: '8px' }}>
+                                        <button className="row-delete-btn" style={{ fontSize: '10px' }}
+                                          onClick={() => moveProjectSection(project.id, si, si - 1)}>↑</button>
+                                        <button className="row-delete-btn" style={{ fontSize: '10px' }}
+                                          onClick={() => moveProjectSection(project.id, si, si + 1)}>↓</button>
+                                        <button className="row-delete-btn"
+                                          onClick={() => removeProjectSection(project.id, section.id)}>
+                                          ×
+                                        </button>
+                                      </div>
                                     </div>
-                                    <RichEditor
-                                      value={section.content}
-                                      onChange={v => updateProjectSection(project.id, section.id, 'content', v)}
-                                    />
+                                    
+                                    {section.type === 'image' ? (
+                                      <div style={{ padding: '16px', display: 'flex', flexDirection: 'column', gap: '12px' }}>
+                                        <div className="input-group">
+                                          <label>Section Image URL</label>
+                                          <LogoField 
+                                            value={section.content} 
+                                            onChange={v => updateProjectSection(project.id, section.id, 'content', v)} 
+                                          />
+                                        </div>
+                                        {section.content && (
+                                          <div style={{ width: '100%', height: '200px', borderRadius: '4px', overflow: 'hidden', border: '1px solid var(--db-border-light)' }}>
+                                            <img src={section.content} alt="Preview" style={{ width: '100%', height: '100%', objectFit: 'contain', background: '#000' }} />
+                                          </div>
+                                        )}
+                                      </div>
+                                    ) : (
+                                      <RichEditor
+                                        value={section.content}
+                                        onChange={v => updateProjectSection(project.id, section.id, 'content', v)}
+                                      />
+                                    )}
                                   </div>
                                 ))}
                               </div>

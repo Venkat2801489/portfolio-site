@@ -211,3 +211,29 @@ section {
     font-size: 30px;
   }
 }
+
+/* ── Image Type Section ── */
+.detail-section.image-type {
+  padding: 4rem 0;
+}
+
+.full-width-section-image {
+  width: 100%;
+}
+
+.full-width-section-image img {
+  width: 100%;
+  height: auto;
+  border-radius: 12px;
+  display: block;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+}
+
+.image-caption {
+  margin-top: 1.5rem;
+  font-size: 14px;
+  color: rgba(255, 255, 255, 0.4);
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  text-align: center;
+}

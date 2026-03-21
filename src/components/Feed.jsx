@@ -63,7 +63,7 @@ const Feed = () => {
               transition={{ duration: 0.8, delay: (index % 2) * 0.15 }}
               viewport={{ once: true, margin: '-80px' }}
             >
-              <Link to={`/work/${project.id}`} className="feed-card__link">
+              <Link to={`/work/${project.slug || project.id}`} className="feed-card__link">
                 <div className="feed-card__img-wrap">
                   <img
                     src={project.image}

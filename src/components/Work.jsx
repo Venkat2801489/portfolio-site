@@ -60,7 +60,7 @@ const Work = () => {
                 transition={{ duration: 0.5 }}
                 className="project-card"
               >
-                <Link to={`/work/${project.id}`} className="project-link">
+                <Link to={`/work/${project.slug || project.id}`} className="project-link">
                   <div className="card-image-wrap">
                     <img src={project.image} alt={project.title} loading="lazy" />
                     <div className="card-overlay">

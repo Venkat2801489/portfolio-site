@@ -63,6 +63,7 @@ export const initialData = {
   projects: [
     {
       id: 1,
+      slug: "google-maps-optimization",
       title: "Google Maps Optimization",
       category: "GMB",
       image: "https://images.unsplash.com/photo-1569336415962-a4bd9f6dfc0f?q=80&w=2000&auto=format&fit=crop",
@@ -72,14 +73,21 @@ export const initialData = {
       notionLink: "",
       gallery: [],
       sections: [
-        { id: 101, heading: "Overview", content: "This project focused on scaling local search visibility for a regional business through targeted Google Maps strategies." },
-        { id: 102, heading: "The Challenge", content: "The client had low visibility in local search results despite having a strong offline presence." },
-        { id: 103, heading: "Solution", content: "We implemented a full GMB audit, optimized categories, managed reviews, and ran local citation campaigns." },
-        { id: 104, heading: "Results", content: "3x increase in map views, 45% increase in direction requests, top-3 ranking in local pack." }
-      ]
+        { id: 101, type: "text", heading: "Overview", content: "This project focused on scaling local search visibility for a regional business through targeted Google Maps strategies." },
+        { id: 102, type: "text", heading: "The Challenge", content: "The client had low visibility in local search results despite having a strong offline presence." },
+        { id: 103, type: "text", heading: "Solution", content: "We implemented a full GMB audit, optimized categories, managed reviews, and ran local citation campaigns." },
+        { id: 104, type: "text", heading: "Results", content: "3x increase in map views, 45% increase in direction requests, top-3 ranking in local pack." }
+      ],
+      seo: {
+        title: "Google Maps SEO Case Study | Venkateswaran",
+        description: "How we achieved a 3x increase in map views using advanced GMB strategies.",
+        keywords: "GMB SEO, Local SEO, Google Maps Optimization",
+        canonical: ""
+      }
     },
     {
       id: 2,
+      slug: "organic-saas-growth",
       title: "Organic SaaS Growth",
       category: "SEO",
       image: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?q=80&w=2426&auto=format&fit=crop",
@@ -89,14 +97,21 @@ export const initialData = {
       notionLink: "",
       gallery: [],
       sections: [
-        { id: 201, heading: "Overview", content: "Driving 200% increase in organic traffic for a series-B fintech startup through content clusters and technical SEO." },
-        { id: 202, heading: "The Challenge", content: "Keyword cannibalization and technical debt were the primary bottlenecks causing growth plateau." },
-        { id: 203, heading: "Solution", content: "Implemented a full-scale content pruning strategy, restructured the site hierarchy for better crawlability, and executed a targeted backlink campaign." },
-        { id: 204, heading: "Results", content: "200% organic traffic increase, top 3 position for 50+ high-intent keywords, 30% bounce rate reduction." }
-      ]
+        { id: 201, type: "text", heading: "Overview", content: "Driving 200% increase in organic traffic for a series-B fintech startup through content clusters and technical SEO." },
+        { id: 202, type: "text", heading: "The Challenge", content: "Keyword cannibalization and technical debt were the primary bottlenecks causing growth plateau." },
+        { id: 203, type: "text", heading: "Solution", content: "Implemented a full-scale content pruning strategy, restructured the site hierarchy for better crawlability, and executed a targeted backlink campaign." },
+        { id: 204, type: "text", heading: "Results", content: "200% organic traffic increase, top 3 position for 50+ high-intent keywords, 30% bounce rate reduction." }
+      ],
+      seo: {
+        title: "SaaS SEO Growth Strategy | 200% Traffic Increase",
+        description: "A deep dive into fintech SaaS SEO and content cluster strategies.",
+        keywords: "SaaS SEO, Growth Marketing, Fintech Marketing",
+        canonical: ""
+      }
     },
     {
       id: 3,
+      slug: "headless-wordpress-ecommerce",
       title: "Headless WordPress",
       category: "WordPress",
       image: "https://images.unsplash.com/photo-1614332287897-cdc485fa562d?q=80&w=2070&auto=format&fit=crop",
@@ -106,14 +121,21 @@ export const initialData = {
       notionLink: "",
       gallery: [],
       sections: [
-        { id: 301, heading: "Overview", content: "Building high-performance e-commerce sites using WordPress as a decoupled headless CMS." },
-        { id: 302, heading: "The Challenge", content: "The client needed a fast, scalable e-commerce experience without the performance limitations of traditional WordPress themes." },
-        { id: 303, heading: "Solution", content: "Decoupled the WordPress backend from a React frontend, using WP REST API and custom post types." },
-        { id: 304, heading: "Results", content: "90+ Lighthouse score, 60% faster page loads, seamless CMS editing workflow maintained." }
-      ]
+        { id: 301, type: "text", heading: "Overview", content: "Building high-performance e-commerce sites using WordPress as a decoupled headless CMS." },
+        { id: 302, type: "text", heading: "The Challenge", content: "The client needed a fast, scalable e-commerce experience without the performance limitations of traditional WordPress themes." },
+        { id: 303, type: "text", heading: "Solution", content: "Decoupled the WordPress backend from a React frontend, using WP REST API and custom post types." },
+        { id: 304, type: "text", heading: "Results", content: "90+ Lighthouse score, 60% faster page loads, seamless CMS editing workflow maintained." }
+      ],
+      seo: {
+        title: "Headless WordPress E-commerce | High Performance Web",
+        description: "Case study on decoupled WordPress architecture with React frontend.",
+        keywords: "Headless WordPress, React E-commerce, Performance Optimization",
+        canonical: ""
+      }
     },
     {
       id: 4,
+      slug: "marketing-automation-workflows",
       title: "Marketing Automation",
       category: "Tools",
       image: "https://images.unsplash.com/photo-1551288049-bbbda536339a?q=80&w=2070&auto=format&fit=crop",
@@ -123,14 +145,21 @@ export const initialData = {
       notionLink: "",
       gallery: [],
       sections: [
-        { id: 401, heading: "Overview", content: "Developing custom automation scripts to qualify leads and sync data with CRM systems." },
-        { id: 402, heading: "The Challenge", content: "Manual lead qualification was consuming significant team time and causing delays in follow-ups." },
-        { id: 403, heading: "Solution", content: "Built automated workflows using Zapier, custom Python scripts, and Salesforce API integrations." },
-        { id: 404, heading: "Results", content: "80% reduction in manual data entry, 40% faster lead response time, improved CRM data quality." }
-      ]
+        { id: 401, type: "text", heading: "Overview", content: "Developing custom automation scripts to qualify leads and sync data with CRM systems." },
+        { id: 402, type: "text", heading: "The Challenge", content: "Manual lead qualification was consuming significant team time and causing delays in follow-ups." },
+        { id: 403, type: "text", heading: "Solution", content: "Built automated workflows using Zapier, custom Python scripts, and Salesforce API integrations." },
+        { id: 404, type: "text", heading: "Results", content: "80% reduction in manual data entry, 40% faster lead response time, improved CRM data quality." }
+      ],
+      seo: {
+        title: "CRM Marketing Automation | Lead Gen Optimization",
+        description: "Automating lead qualification to reduce response time by 40%.",
+        keywords: "Marketing Automation, CRM Sync, Lead Qualification",
+        canonical: ""
+      }
     },
     {
       id: 5,
+      slug: "ai-content-workflows",
       title: "AI Workflows",
       category: "Claude Skills",
       image: "https://images.unsplash.com/photo-1677442136019-21780ecad995?q=80&w=2070&auto=format&fit=crop",
@@ -140,14 +169,21 @@ export const initialData = {
       notionLink: "",
       gallery: [],
       sections: [
-        { id: 501, heading: "Overview", content: "Leveraging Claude AI for advanced content modeling and personalized marketing at scale." },
-        { id: 502, heading: "The Challenge", content: "Creating personalized content at scale was resource-intensive and inconsistent in quality." },
-        { id: 503, heading: "Solution", content: "Designed custom Claude prompts and workflow scripts to generate, review, and publish content with consistent brand voice." },
-        { id: 504, heading: "Results", content: "5x content output increase, maintained brand consistency, 60% reduction in content production costs." }
-      ]
+        { id: 501, type: "text", heading: "Overview", content: "Leveraging Claude AI for advanced content modeling and personalized marketing at scale." },
+        { id: 502, type: "text", heading: "The Challenge", content: "Creating personalized content at scale was resource-intensive and inconsistent in quality." },
+        { id: 503, type: "text", heading: "Solution", content: "Designed custom Claude prompts and workflow scripts to generate, review, and publish content with consistent brand voice." },
+        { id: 504, type: "text", heading: "Results", content: "5x content output increase, maintained brand consistency, 60% reduction in content production costs." }
+      ],
+      seo: {
+        title: "AI Marketing Workflows | Scaling with Claude",
+        description: "How we used Generative AI to scale content production while reducing costs by 60%.",
+        keywords: "AI Marketing, Claude AI, Content Scaling",
+        canonical: ""
+      }
     },
     {
       id: 6,
+      slug: "strategic-marketing-dashboard",
       title: "Strategic Dashboard",
       category: "Resources",
       image: "https://images.unsplash.com/photo-1551288049-bbbda536339a?q=80&w=2070&auto=format&fit=crop",
@@ -157,13 +193,53 @@ export const initialData = {
       notionLink: "",
       gallery: [],
       sections: [
-        { id: 601, heading: "Overview", content: "A comprehensive Google Sheets system for tracking multi-channel marketing ROI and campaign performance." },
-        { id: 602, heading: "The Challenge", content: "Marketing data was scattered across platforms with no unified view of ROI." },
-        { id: 603, heading: "Solution", content: "Built a custom Google Sheets dashboard pulling data via APIs from GA4, Search Console, Meta Ads, and more." },
-        { id: 604, heading: "Results", content: "Unified view of all channel performance, 50% faster monthly reporting, data-driven budget allocation." }
-      ]
+        { id: 601, type: "text", heading: "Overview", content: "A comprehensive Google Sheets system for tracking multi-channel marketing ROI and campaign performance." },
+        { id: 602, type: "text", heading: "The Challenge", content: "Marketing data was scattered across platforms with no unified view of ROI." },
+        { id: 603, type: "text", heading: "Solution", content: "Built a custom Google Sheets dashboard pulling data via APIs from GA4, Search Console, Meta Ads, and more." },
+        { id: 604, type: "text", heading: "Results", content: "Unified view of all channel performance, 50% faster monthly reporting, data-driven budget allocation." }
+      ],
+      seo: {
+        title: "Marketing ROI Dashboard | Google Sheets Resource",
+        description: "Unified marketing reporting system pulling data from GA4 and GSC.",
+        keywords: "Marketing Analytics, ROI Dashboard, Google Sheets reporting",
+        canonical: ""
+      }
     }
   ],
+
+  // New SEO Page Management
+  seo: {
+    pages: {
+      home: { 
+        slug: "/", 
+        title: "Venkateswaran | Digital Marketer & Growth Strategist", 
+        description: "Venkateswaran is a marketing strategist based in Chennai, specializing in SEO, growth, and creative direction.", 
+        keywords: "Venkateswaran, Digital Marketer, Growth Strategist, Chennai Marketing", 
+        canonical: "https://venkats-portfolio.vercel.app/"
+      },
+      profile: { 
+        slug: "/profile", 
+        title: "About | Venkateswaran — Growth & Creative Direction", 
+        description: "Learn more about Venkateswaran's career path from Microsoft to Dropbox.", 
+        keywords: "Venkateswaran Bio, Career Timeline, Brand Experience", 
+        canonical: "https://venkats-portfolio.vercel.app/profile"
+      },
+      work: { 
+        slug: "/work", 
+        title: "Portfolio | Case Studies by Venkateswaran", 
+        description: "Explore marketing case studies in SEO, Automation, and AI workflows.", 
+        keywords: "Marketing Portfolio, SEO Case Studies, AI Marketing Projects", 
+        canonical: "https://venkats-portfolio.vercel.app/work"
+      },
+      contact: { 
+        slug: "/contact", 
+        title: "Contact | Work with Venkateswaran", 
+        description: "Get in touch for digital marketing consultation or creative direction projects.", 
+        keywords: "Hire Digital Marketer, Marketing Consultant Chennai", 
+        canonical: "https://venkats-portfolio.vercel.app/contact"
+      }
+    }
+  },
 
   footer: {
     address: "Permanently located in Chennai, Tamil Nadu",

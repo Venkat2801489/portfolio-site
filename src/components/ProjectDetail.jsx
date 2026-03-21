@@ -5,9 +5,11 @@ import { usePortfolio } from '../context/PortfolioContext';
 import './ProjectDetail.css';
 
 const ProjectDetail = () => {
-  const { id } = useParams();
+  const { slug: routeSlug } = useParams();
   const { portfolioData } = usePortfolio();
-  const project = portfolioData.projects.find(p => String(p.id) === String(id));
+  const project = portfolioData.projects.find(p => 
+    String(p.slug) === String(routeSlug) || String(p.id) === String(routeSlug)
+  );
 
   if (!project) {
     return (
@@ -58,19 +60,28 @@ const ProjectDetail = () => {
       {(project.sections || []).map((section, index) => (
         <motion.section 
           key={section.id}
-          className={`detail-section ${index % 2 !== 0 ? 'bg-dark' : ''}`}
+          className={`detail-section ${index % 2 !== 0 ? 'bg-dark' : ''} ${section.type === 'image' ? 'image-type' : ''}`}
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
         >
-          <div className="container grid-2">
-            <div className="section-label">{section.heading}</div>
-            <div 
-              className="section-body"
-              dangerouslySetInnerHTML={{ __html: section.content }}
-            />
-          </div>
+          {section.type === 'image' ? (
+            <div className="container">
+              <div className="full-width-section-image">
+                <img src={section.content} alt={section.heading || 'Project visual'} />
+                {section.heading && <p className="image-caption">{section.heading}</p>}
+              </div>
+            </div>
+          ) : (
+            <div className="container grid-2">
+              <div className="section-label">{section.heading}</div>
+              <div 
+                className="section-body"
+                dangerouslySetInnerHTML={{ __html: section.content }}
+              />
+            </div>
+          )}
         </motion.section>
       ))}
 

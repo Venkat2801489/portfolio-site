@@ -1,5 +1,6 @@
 import React from 'react';
 import { motion } from 'framer-motion';
+import { Link } from 'react-router-dom';
 import './FooterSection.css';
 
 import { usePortfolio } from '../context/PortfolioContext';
@@ -30,22 +31,46 @@ const FooterSection = () => {
             </motion.a>
             <p className="footer-section__location">{footer.address}</p>
           </div>
+
+          <div className="footer-section__nav">
+            <h4 className="footer-section__title">Navigation</h4>
+            <ul className="footer-section__links">
+              <li><Link to="/">Home</Link></li>
+              <li><Link to="/work">Work</Link></li>
+              <li><Link to="/profile">Profile</Link></li>
+              <li>
+                <a 
+                  href={personalInfo.resumeUrl} 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  download
+                >
+                  Resume
+                </a>
+              </li>
+              <li><Link to="/contact">Contact</Link></li>
+            </ul>
+          </div>
+
           <div className="footer-section__socials">
-            {socialLinks.map((social, index) => (
-              <motion.a 
-                key={index}
-                href={social.url}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="social-link"
-                initial={{ opacity: 0, x: 20 }}
-                whileInView={{ opacity: 1, x: 0 }}
-                transition={{ duration: 0.5, delay: index * 0.1 }}
-                viewport={{ once: true }}
-              >
-                {social.name}
-              </motion.a>
-            ))}
+            <h4 className="footer-section__title">Socials</h4>
+            <div className="social-links-grid">
+              {socialLinks.map((social, index) => (
+                <motion.a 
+                  key={index}
+                  href={social.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="social-link"
+                  initial={{ opacity: 0, x: 20 }}
+                  whileInView={{ opacity: 1, x: 0 }}
+                  transition={{ duration: 0.5, delay: index * 0.1 }}
+                  viewport={{ once: true }}
+                >
+                  {social.name}
+                </motion.a>
+              ))}
+            </div>
           </div>
         </div>
         
@@ -57,7 +82,7 @@ const FooterSection = () => {
             transition={{ duration: 1.2, ease: "easeOut" }}
             viewport={{ once: true }}
           >
-            {personalInfo.name}
+            @venkat
           </motion.h2>
         </div>
       </div>

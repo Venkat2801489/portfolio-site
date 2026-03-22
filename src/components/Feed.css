@@ -3,7 +3,7 @@
    =========================== */
 
 .feed {
-  padding: 5rem 0 6rem;
+  padding: 4rem 0; /* Reduced from 5rem 0 6rem */
   border-top: 1px solid rgba(255, 255, 255, 0.08);
 }
 
@@ -76,7 +76,7 @@
   overflow: hidden;
   border-radius: 8px;
   background: #111;
-  margin-bottom: 1.4rem;
+  margin-bottom: 2.5rem; /* Increased from 1.4rem */
 }
 
 .feed-card__img {
@@ -120,7 +120,7 @@
 .feed-card__info {
   display: flex;
   flex-direction: column;
-  gap: 0.3rem;
+  gap: 0.8rem; /* Increased from 0.3rem */
 }
 
 .feed-card__label {

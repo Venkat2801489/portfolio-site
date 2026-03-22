@@ -5,6 +5,7 @@
   justify-content: center;
   position: relative;
   overflow: hidden;
+  padding-top: 70px; /* Offset for fixed header */
 }
 
 .hero__content {

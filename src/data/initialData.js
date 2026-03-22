@@ -18,6 +18,7 @@ export const initialData = {
       "linkedin": "https://linkedin.com/in/venkateswaran",
       "github": "https://github.com/venkateswaran"
     },
+    "whatsapp": "917358061655",
     "portrait": "/assets/portrait_final.png",
     "resumeUrl": "/resume.pdf"
   },

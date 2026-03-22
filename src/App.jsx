@@ -7,6 +7,7 @@ import Work from './components/Work';
 import ProjectDetail from './components/ProjectDetail';
 import Contact from './components/Contact';
 import FooterSection from './components/FooterSection';
+import WhatsAppButton from './components/WhatsAppButton';
 import './index.css';
 
 import Dashboard from './components/Dashboard';
@@ -34,6 +35,7 @@ function AppContent() {
         </Routes>
       </main>
       {!isDashboard && <FooterSection />}
+      {!isDashboard && <WhatsAppButton />}
     </div>
   );
 }

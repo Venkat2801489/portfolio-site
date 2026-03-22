@@ -4,7 +4,7 @@ import { initialData } from '../data/initialData';
 const PortfolioContext = createContext();
 
 // Increment this whenever initialData schema changes, to bust stale localStorage
-const DATA_VERSION = '9'; // Forced reset for Global Sync features
+const DATA_VERSION = '10'; // Added WhatsApp integration
 
 export const PortfolioProvider = ({ children }) => {
   const [portfolioData, setPortfolioData] = useState(() => {

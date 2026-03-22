@@ -105,15 +105,29 @@
 }
 
 @media (max-width: 768px) {
-  .contact-form {
-    padding: 2rem;
+  .contact-page {
+    padding-top: 100px;
   }
-  
+
+  .contact-form {
+    padding: 2rem 1.5rem;
+  }
+
   .form-grid {
     grid-template-columns: 1fr;
   }
-  
+
   .form-group.full-width {
     grid-column: span 1;
+  }
+}
+
+@media (max-width: 480px) {
+  .contact-title {
+    letter-spacing: -2px;
+  }
+
+  .contact-header {
+    margin-bottom: 3rem;
   }
 }

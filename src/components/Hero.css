@@ -74,3 +74,24 @@
   background-clip: text;
   -webkit-text-fill-color: transparent;
 }
+
+@media (max-width: 480px) {
+  .hero {
+    padding-top: 70px;
+    box-sizing: border-box;
+  }
+
+  .hero__portrait {
+    width: 100%;
+    max-height: 80vh;
+  }
+
+  .hero__image-container {
+    max-width: 100%;
+  }
+
+  .hero__main {
+    font-size: clamp(28px, 10vw, 80px);
+    letter-spacing: -2px;
+  }
+}

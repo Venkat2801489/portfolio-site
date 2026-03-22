@@ -20,39 +20,23 @@ const Feed = () => {
 
         {/* Header row: "Feed ↘" left, "2026 Portfolio" right */}
         <div className="feed__header">
-          <motion.span
-            className="feed__tag"
-            initial={{ opacity: 0, x: -20 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.7 }}
-            viewport={{ once: true }}
-          >
+          <span className="feed__tag">
             Feed ↘
-          </motion.span>
+          </span>
 
           <div className="feed__title-wrap">
-            <motion.h2
-              className="feed__main-title"
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.9, delay: 0.15 }}
-              viewport={{ once: true }}
-            >
+            <h2 className="feed__main-title">
               Portfolio
-            </motion.h2>
+            </h2>
           </div>
         </div>
 
         {/* 2-column project grid */}
         <div className="feed__grid">
           {featured.map((project, index) => (
-            <motion.div
+            <div
               key={project.id}
               className="feed-card"
-              initial={{ opacity: 0, y: 50 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: (index % 2) * 0.15 }}
-              viewport={{ once: true, margin: '-80px' }}
             >
               <Link to={`/work/${project.slug || project.id}`} className="feed-card__link">
                 <div className="feed-card__img-wrap">
@@ -72,22 +56,16 @@ const Feed = () => {
                   <p className="feed-card__desc">{project.description}</p>
                 </div>
               </Link>
-            </motion.div>
+            </div>
           ))}
         </div>
 
         {/* See all link */}
-        <motion.div
-          className="feed__footer"
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          transition={{ duration: 0.8 }}
-          viewport={{ once: true }}
-        >
+        <div className="feed__footer">
           <Link to="/work" className="feed__all-link">
             View All Work <span>→</span>
           </Link>
-        </motion.div>
+        </div>
 
       </div>
     </section>

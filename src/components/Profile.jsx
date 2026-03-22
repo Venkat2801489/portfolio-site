@@ -24,24 +24,20 @@ const Profile = () => {
       {/* Hero: Portrait + Name/Role stacked centered */}
       <div className="prof-hero">
         <div className="container">
-          <motion.div
-            className="prof-hero__inner"
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 1 }}
-          >
+          <div className="prof-hero__inner">
             <div className="prof-hero__img-wrap">
               <img
                 src={personalInfo?.portrait}
                 alt={personalInfo?.name}
                 className="prof-hero__img"
+                loading="lazy"
               />
             </div>
             <div className="prof-hero__identity">
               <h1 className="prof-hero__name">{personalInfo?.name}</h1>
               <p className="prof-hero__role">{personalInfo?.role}</p>
             </div>
-          </motion.div>
+          </div>
         </div>
       </div>
 
@@ -58,17 +54,10 @@ const Profile = () => {
                 <span className="prof-block__label">Selected Experience</span>
                 <div className="prof-list">
                   {expList.map((exp, i) => (
-                    <motion.div
-                      key={exp.id || i}
-                      className="prof-item"
-                      initial={{ opacity: 0, x: -20 }}
-                      whileInView={{ opacity: 1, x: 0 }}
-                      transition={{ duration: 0.5, delay: i * 0.08 }}
-                      viewport={{ once: true }}
-                    >
+                    <div key={exp.id || i} className="prof-item">
                       <div className="prof-item__left">
                         <div className="prof-item__icon">
-                          {renderIcon(exp.icon, exp.company)}
+                          {renderIcon(exp.logo || exp.icon, exp.company)}
                         </div>
                         <div className="prof-item__info">
                           <h3 className="prof-item__company">{exp.company}</h3>
@@ -76,7 +65,31 @@ const Profile = () => {
                         </div>
                       </div>
                       <span className="prof-item__pill">{exp.period}</span>
-                    </motion.div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              {/* Education */}
+              <div className="prof-block">
+                <span className="prof-block__label">Education</span>
+                <div className="prof-list">
+                  {(portfolioData.education || []).map((edu, i) => (
+                    <div key={edu.id || i} className="prof-item">
+                      <div className="prof-item__left">
+                        <div className="prof-item__icon">
+                          {renderIcon(edu.logo || edu.icon, edu.institution)}
+                        </div>
+                        <div className="prof-item__info">
+                          <h3 className="prof-item__company">{edu.institution}</h3>
+                          <p className="prof-item__role">{edu.degree}</p>
+                          <p className="prof-item__location" style={{ fontSize: '13px', color: 'rgba(255,255,255,0.4)', marginTop: '4px' }}>
+                            {edu.location || edu.info}
+                          </p>
+                        </div>
+                      </div>
+                      <span className="prof-item__pill">{edu.period}</span>
+                    </div>
                   ))}
                 </div>
               </div>
@@ -86,20 +99,16 @@ const Profile = () => {
                 <span className="prof-block__label">Certifications</span>
                 <div className="prof-list">
                   {certList.map((cert, i) => (
-                    <motion.a
+                    <a
                       key={cert.id || i}
                       href={cert.link}
                       target="_blank"
                       rel="noopener noreferrer"
                       className="prof-item prof-item--link"
-                      initial={{ opacity: 0, x: -20 }}
-                      whileInView={{ opacity: 1, x: 0 }}
-                      transition={{ duration: 0.5, delay: i * 0.08 }}
-                      viewport={{ once: true }}
                     >
                       <div className="prof-item__left">
                         <div className="prof-item__icon">
-                          {renderIcon(cert.icon, cert.name)}
+                          {renderIcon(cert.logo || cert.icon, cert.name)}
                         </div>
                         <div className="prof-item__info">
                           <h3 className="prof-item__company">{cert.name}</h3>
@@ -107,7 +116,7 @@ const Profile = () => {
                         </div>
                       </div>
                       <span className="prof-item__view">View ↗</span>
-                    </motion.a>
+                    </a>
                   ))}
                 </div>
               </div>
@@ -117,13 +126,7 @@ const Profile = () => {
             {/* Right column: About bio */}
             <div className="prof-col prof-col--right">
               <span className="prof-block__label">About</span>
-              <motion.div
-                className="prof-bio"
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.9 }}
-                viewport={{ once: true }}
-              >
+              <div className="prof-bio">
                 {bio.map((para, i) => (
                   <p
                     key={i}
@@ -133,7 +136,7 @@ const Profile = () => {
                     }}
                   />
                 ))}
-              </motion.div>
+              </div>
             </div>
 
           </div>

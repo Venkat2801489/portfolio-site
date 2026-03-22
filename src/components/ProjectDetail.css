@@ -212,6 +212,7 @@ section {
   }
 }
 
+
 /* ── Image Type Section ── */
 .detail-section.image-type {
   padding: 4rem 0;
@@ -236,4 +237,42 @@ section {
   text-transform: uppercase;
   letter-spacing: 2px;
   text-align: center;
+}
+
+@media (max-width: 640px) {
+  .project-detail {
+    padding-top: 80px;
+  }
+
+  .detail-title {
+    font-size: clamp(32px, 10vw, 70px);
+    letter-spacing: -2px;
+    margin-bottom: 2rem;
+  }
+
+  .hero-image-wrap {
+    height: 50vh;
+  }
+
+  section {
+    padding: 5rem 0;
+  }
+
+  .lead-text {
+    font-size: 22px;
+    line-height: 1.5;
+  }
+
+  .results-list li {
+    font-size: 28px;
+    letter-spacing: -0.5px;
+  }
+
+  .resource-links {
+    grid-template-columns: 1fr;
+  }
+
+  .container {
+    padding: 0 20px;
+  }
 }

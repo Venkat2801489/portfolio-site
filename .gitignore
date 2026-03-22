@@ -28,4 +28,6 @@ awesome-skills
 handling-errors
 antigravity-skill-creator.md
 .vercel
+.vercel_backup
+.env
 .env*.local

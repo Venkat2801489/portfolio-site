@@ -650,6 +650,51 @@
   outline: none;
   border-color: var(--db-accent-primary);
 }
+
+/* ── Testimonials Stack ── */
+.testimonials-stack {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+.testimonial-row-card {
+  background: var(--db-bg-card);
+  border: 1px solid var(--db-border-light);
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+.testimonial-row-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+/* ── FAQ Stack ── */
+.faq-stack {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+.faq-row-card {
+  background: var(--db-bg-card);
+  border: 1px solid var(--db-border-light);
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+.faq-row-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.faq-row-card input, .faq-row-card textarea {
+  width: 100%;
+  box-sizing: border-box;
+}
+
 .row-delete-btn.text-btn {
   font-size: 11px;
   letter-spacing: 1px;

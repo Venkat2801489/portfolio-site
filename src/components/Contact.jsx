@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import { motion } from 'framer-motion';
 import './Contact.css';
 
 const Contact = () => {
@@ -29,21 +28,13 @@ const Contact = () => {
   return (
     <div className="contact-page">
       <div className="container">
-        <motion.div 
-          className="contact-header"
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8 }}
-        >
+        <div className="contact-header">
           <h1 className="contact-title">Get in touch ↓</h1>
-        </motion.div>
+        </div>
 
-        <motion.form 
+        <form 
           className="contact-form"
           onSubmit={handleSubmit}
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 1, delay: 0.2 }}
         >
           <div className="form-grid">
             {/* Primary Info */}
@@ -146,25 +137,17 @@ const Contact = () => {
             </div>
           </div>
 
-          <motion.button 
+          <button 
             type="submit" 
             className="submit-btn"
-            whileHover={{ scale: 1.02 }}
-            whileTap={{ scale: 0.98 }}
           >
             Let's Connect
-          </motion.button>
+          </button>
 
-          <motion.div 
-            className="contact-availability"
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
-            transition={{ duration: 1, delay: 0.5 }}
-            viewport={{ once: true }}
-          >
+          <div className="contact-availability">
             <p><strong>Available for freelance and full-time opportunities</strong></p>
-          </motion.div>
-        </motion.form>
+          </div>
+        </form>
 
       </div>
     </div>

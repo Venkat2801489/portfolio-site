@@ -176,14 +176,34 @@
 }
 
 @media (max-width: 768px) {
+  .work-page {
+    padding-top: 100px;
+  }
+
   .work-header {
     flex-direction: column;
     align-items: flex-start;
-    gap: 2rem;
+    gap: 1.5rem;
+    margin-bottom: 3rem;
   }
-  
+
   .work-grid {
     grid-template-columns: 1fr;
-    gap: 3rem;
+    gap: 2.5rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .work-title {
+    letter-spacing: -2px;
+  }
+
+  .filter-nav {
+    gap: 0.6rem;
+  }
+
+  .filter-btn {
+    font-size: 12px;
+    padding: 0.5rem 1rem;
   }
 }

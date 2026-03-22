@@ -4,7 +4,7 @@ import { initialData } from '../data/initialData';
 const PortfolioContext = createContext();
 
 // Increment this whenever initialData schema changes, to bust stale localStorage
-const DATA_VERSION = '6'; // Incremented for hero designations update
+const DATA_VERSION = '8'; // Updated for Education section
 
 export const PortfolioProvider = ({ children }) => {
   const [portfolioData, setPortfolioData] = useState(() => {

@@ -4,7 +4,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import './Dashboard.css';
 
-const DASHBOARD_PASSWORD = "admin";
+const DASHBOARD_PASSWORD = import.meta.env.VITE_DASHBOARD_PASSWORD;
 
 // ── Rich Text Toolbar ──────────────────────────────────────────────────────────
 const RichToolbar = ({ onCommand }) => (
@@ -172,6 +172,46 @@ const Dashboard = () => {
   const updateFact = (i, value) =>
     setLocalData(p => { const f = [...p.facts]; f[i] = value; return { ...p, facts: f }; });
 
+  // ── Tools helpers ────────────────────────────────────────────────────────────
+  const addTool = () =>
+    setLocalData(p => ({ ...p, tools: [...(p.tools || []), { id: Date.now(), label: '', enabled: true }] }));
+
+  const removeTool = (id) =>
+    setLocalData(p => ({ ...p, tools: p.tools.filter(t => t.id !== id) }));
+
+  const updateTool = (id, field, value) =>
+    setLocalData(p => ({ ...p, tools: p.tools.map(t => t.id === id ? { ...t, [field]: value } : t) }));
+
+  // ── Testimonials helpers ─────────────────────────────────────────────────────
+  const addTestimonial = () =>
+    setLocalData(p => ({ ...p, testimonials: [...(p.testimonials || []), { id: Date.now(), name: '', industry: '', content: '', enabled: true }] }));
+
+  const removeTestimonial = (id) =>
+    setLocalData(p => ({ ...p, testimonials: p.testimonials.filter(t => t.id !== id) }));
+
+  const updateTestimonial = (id, field, value) =>
+    setLocalData(p => ({ ...p, testimonials: p.testimonials.map(t => t.id === id ? { ...t, [field]: value } : t) }));
+
+  // ── FAQ helpers ──────────────────────────────────────────────────────────────
+  const addFAQ = () =>
+    setLocalData(p => ({ ...p, faqs: [...(p.faqs || []), { id: Date.now(), question: '', answer: '', enabled: true }] }));
+
+  const removeFAQ = (id) =>
+    setLocalData(p => ({ ...p, faqs: p.faqs.filter(f => f.id !== id) }));
+
+  const updateFAQ = (id, field, value) =>
+    setLocalData(p => ({ ...p, faqs: p.faqs.map(f => f.id === id ? { ...f, [field]: value } : f) }));
+
+  // ── Education helpers ────────────────────────────────────────────────────────
+  const addEducation = () =>
+    setLocalData(p => ({ ...p, education: [...(p.education || []), { id: Date.now(), institution: '', location: '', period: '', degree: '', info: '', logo: '', enabled: true }] }));
+
+  const removeEducation = (id) =>
+    setLocalData(p => ({ ...p, education: p.education.filter(e => e.id !== id) }));
+
+  const updateEducation = (id, field, value) =>
+    setLocalData(p => ({ ...p, education: p.education.map(e => e.id === id ? { ...e, [field]: value } : e) }));
+
   // ── Project section helpers ──────────────────────────────────────────────────
   const addProjectSection = (projectId, type = 'text') =>
     setLocalData(p => ({
@@ -289,13 +329,15 @@ const Dashboard = () => {
   }
 
   const tabs = [
-    { id: 'general', label: 'General' },
-    { id: 'seo', label: 'SEO / Pages' },
     { id: 'focus', label: 'Focus / Skills' },
+    { id: 'tools', label: 'Tools' },
+    { id: 'testimonials', label: 'Testimonials' },
     { id: 'facts', label: 'Facts' },
     { id: 'experience', label: 'Experience' },
+    { id: 'education', label: 'Education' },
     { id: 'certifications', label: 'Certifications' },
     { id: 'work', label: 'Projects' },
+    { id: 'faqs', label: 'FAQ' },
   ];
 
   return (
@@ -565,6 +607,84 @@ const Dashboard = () => {
                 </motion.div>
               )}
 
+              {/* ════════════════════════════════ TOOLS TAB ══════════════════════════════════ */}
+              {activeTab === 'tools' && (
+                <motion.div key="tools" initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -10 }} className="config-section">
+                  <div className="section-header-row">
+                    <div>
+                      <h2>Tools & Technology</h2>
+                      <p className="section-hint">These appear after your Focus section. Toggle to show or hide each tool.</p>
+                    </div>
+                    <button className="ghost-add-btn" onClick={addTool}>+ ADD TOOL</button>
+                  </div>
+                  <div className="focus-stack">
+                    {(localData.tools || []).map((item, index) => (
+                      <div key={item.id} className="focus-row-card">
+                        <span className="drag-handle">⣿</span>
+                        <input className="focus-label-input" type="text" value={item.label}
+                          placeholder="e.g. Google Search Console"
+                          onChange={e => updateTool(item.id, 'label', e.target.value)} />
+                        <div className="focus-controls">
+                          <span className={`toggle-label ${item.enabled ? 'enabled' : 'disabled'}`}>
+                            {item.enabled ? 'Visible' : 'Hidden'}
+                          </span>
+                          <Toggle checked={item.enabled} onChange={v => updateTool(item.id, 'enabled', v)} />
+                          <button className="row-delete-btn" onClick={() => removeTool(item.id)}>×</button>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </motion.div>
+              )}
+
+              {/* ════════════════════════════════ TESTIMONIALS TAB ═══════════════════════════ */}
+              {activeTab === 'testimonials' && (
+                <motion.div key="testimonials" initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -10 }} className="config-section">
+                  <div className="section-header-row">
+                    <div>
+                      <h2>Testimonials & Endorsements</h2>
+                      <p className="section-hint">Client feedback and professional endorsements for your work.</p>
+                    </div>
+                    <button className="ghost-add-btn" onClick={addTestimonial}>+ ADD TESTIMONIAL</button>
+                  </div>
+                  <div className="testimonials-stack">
+                    {(localData.testimonials || []).map((t, i) => (
+                      <div key={t.id} className="testimonial-row-card">
+                        <div className="testimonial-row-header">
+                          <div style={{ display: 'flex', gap: '12px' }}>
+                            <span className="facts-label">Endorsement {i + 1}</span>
+                            <span className={`toggle-label ${t.enabled ? 'enabled' : 'disabled'}`}>
+                              {t.enabled ? 'Visible' : 'Hidden'}
+                            </span>
+                            <Toggle checked={t.enabled} onChange={v => updateTestimonial(t.id, 'enabled', v)} />
+                          </div>
+                          <button className="row-delete-btn text-btn" onClick={() => removeTestimonial(t.id)}>× Remove</button>
+                        </div>
+                        <div className="input-row">
+                          <div className="input-group">
+                            <label>Name</label>
+                            <input type="text" value={t.name} placeholder="Client Name"
+                              onChange={e => updateTestimonial(t.id, 'name', e.target.value)} />
+                          </div>
+                          <div className="input-group">
+                            <label>Industry / Designation</label>
+                            <input type="text" value={t.industry} placeholder="e.g. CEO at TechCorp"
+                              onChange={e => updateTestimonial(t.id, 'industry', e.target.value)} />
+                          </div>
+                        </div>
+                        <div className="input-group">
+                          <label>Testimonial Content</label>
+                          <textarea value={t.content} rows="3" placeholder="What they said..."
+                            onChange={e => updateTestimonial(t.id, 'content', e.target.value)} />
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </motion.div>
+              )}
+
               {/* ════════════════════════════════ FACTS TAB ══════════════════════════════════ */}
               {activeTab === 'facts' && (
                 <motion.div key="facts" initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }}
@@ -688,6 +808,67 @@ const Dashboard = () => {
                           </div>
                         </div>
                         <button className="row-delete-btn" onClick={() => removeItem('certifications', cert.id)}>×</button>
+                      </div>
+                    ))}
+                  </div>
+                </motion.div>
+              )}
+
+              {/* ════════════════════════════════ EDUCATION TAB ═══════════════════════════════ */}
+              {activeTab === 'education' && (
+                <motion.div key="education" initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -10 }} className="config-section">
+                  <div className="section-header-row">
+                    <div>
+                      <h2>Education Timeline</h2>
+                      <p className="section-hint">Your academic background and degrees.</p>
+                    </div>
+                    <button className="ghost-add-btn" onClick={addEducation}>+ NEW ENTRY</button>
+                  </div>
+                  <div className="experience-stack">
+                    {((localData && localData.education) || []).map((edu, i) => (
+                      <div key={edu.id} className="item-row-card exp-card">
+                        <div className="exp-logo-col">
+                          <div className="logo-preview-box">
+                            {edu.logo
+                              ? <img src={edu.logo} alt={edu.institution} className="logo-thumb-lg" />
+                              : <div className="logo-placeholder">{edu.institution?.[0] || '?'}</div>
+                            }
+                          </div>
+                          <div className="input-group" style={{ flex: 1 }}>
+                            <label>Institution Logo URL</label>
+                            <LogoField value={edu.logo || ''}
+                              onChange={v => updateEducation(edu.id, 'logo', v)} />
+                          </div>
+                        </div>
+                        <div className="item-main-fields">
+                          <div className="input-group">
+                            <label>Institution</label>
+                            <input type="text" value={edu.institution} placeholder="University Name"
+                              onChange={e => updateEducation(edu.id, 'institution', e.target.value)} />
+                          </div>
+                          <div className="input-group">
+                            <label>Degree / Specialization</label>
+                            <input type="text" value={edu.degree} placeholder="e.g. BE - Electrical Engineering"
+                              onChange={e => updateEducation(edu.id, 'degree', e.target.value)} />
+                          </div>
+                          <div className="input-row">
+                            <div className="input-group">
+                              <label>Period</label>
+                              <input type="text" value={edu.period} placeholder="e.g. Jul 2017 - Aug 2021"
+                                onChange={e => updateEducation(edu.id, 'period', e.target.value)} />
+                            </div>
+                            <div className="input-group">
+                              <label>Location / CGPA / Info</label>
+                              <input type="text" value={edu.location || edu.info || ''} placeholder="e.g. Padur, TN | CGPA: 7.24"
+                                onChange={e => {
+                                  updateEducation(edu.id, 'location', e.target.value);
+                                  updateEducation(edu.id, 'info', e.target.value);
+                                }} />
+                            </div>
+                          </div>
+                        </div>
+                        <button className="row-delete-btn" onClick={() => removeEducation(edu.id)}>×</button>
                       </div>
                     ))}
                   </div>
@@ -927,6 +1108,46 @@ const Dashboard = () => {
                             </motion.div>
                           )}
                         </AnimatePresence>
+                      </div>
+                    ))}
+                  </div>
+                </motion.div>
+              )}
+
+              {/* ════════════════════════════════ FAQ TAB ════════════════════════════════════ */}
+              {activeTab === 'faqs' && (
+                <motion.div key="faqs" initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -10 }} className="config-section">
+                  <div className="section-header-row">
+                    <div>
+                      <h2>Frequently Asked Questions</h2>
+                      <p className="section-hint">General questions about your services and workflow.</p>
+                    </div>
+                    <button className="ghost-add-btn" onClick={addFAQ}>+ ADD FAQ</button>
+                  </div>
+                  <div className="faq-stack">
+                    {(localData.faqs || []).map((f, i) => (
+                      <div key={f.id} className="faq-row-card">
+                        <div className="faq-row-header">
+                          <div style={{ display: 'flex', gap: '12px' }}>
+                            <span className="facts-label">FAQ {i + 1}</span>
+                            <span className={`toggle-label ${f.enabled ? 'enabled' : 'disabled'}`}>
+                              {f.enabled ? 'Visible' : 'Hidden'}
+                            </span>
+                            <Toggle checked={f.enabled} onChange={v => updateFAQ(f.id, 'enabled', v)} />
+                          </div>
+                          <button className="row-delete-btn text-btn" onClick={() => removeFAQ(f.id)}>× Remove</button>
+                        </div>
+                        <div className="input-group">
+                          <label>Question</label>
+                          <input type="text" value={f.question} placeholder="Enter question..."
+                            onChange={e => updateFAQ(f.id, 'question', e.target.value)} />
+                        </div>
+                        <div className="input-group">
+                          <label>Answer</label>
+                          <textarea value={f.answer} rows="3" placeholder="Enter answer..."
+                            onChange={e => updateFAQ(f.id, 'answer', e.target.value)} />
+                        </div>
                       </div>
                     ))}
                   </div>

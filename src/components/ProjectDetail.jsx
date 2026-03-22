@@ -1,6 +1,5 @@
 import React from 'react';
 import { useParams, Link } from 'react-router-dom';
-import { motion } from 'framer-motion';
 import { usePortfolio } from '../context/PortfolioContext';
 import './ProjectDetail.css';
 
@@ -28,48 +27,34 @@ const ProjectDetail = () => {
   if (project.notionLink) resourceLinks.push({ label: 'Notion Page', url: project.notionLink, icon: '📝' });
 
   return (
-    <motion.div 
-      className="project-detail"
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      exit={{ opacity: 0 }}
-    >
+    <div className="project-detail">
       {/* Hero Section */}
       <section className="detail-hero">
         <div className="container">
           <Link to="/work" className="back-btn">← Back to Work</Link>
-          <motion.div 
-            className="hero-text"
-            initial={{ y: 30, opacity: 0 }}
-            animate={{ y: 0, opacity: 1 }}
-            transition={{ delay: 0.2 }}
-          >
+          <div className="hero-text">
             <span className="detail-category">{project.category}</span>
             <h1 className="detail-title">{project.title}</h1>
             <p className="detail-subtitle">{project.description}</p>
-          </motion.div>
+          </div>
         </div>
         {project.image && (
           <div className="hero-image-wrap">
-            <img src={project.image} alt={project.title} />
+            <img src={project.image} alt={project.title} loading="lazy" />
           </div>
         )}
       </section>
 
       {/* Dynamic Content Sections */}
       {(project.sections || []).map((section, index) => (
-        <motion.section 
+        <section 
           key={section.id}
           className={`detail-section ${index % 2 !== 0 ? 'bg-dark' : ''} ${section.type === 'image' ? 'image-type' : ''}`}
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
         >
           {section.type === 'image' ? (
             <div className="container">
               <div className="full-width-section-image">
-                <img src={section.content} alt={section.heading || 'Project visual'} />
+                <img src={section.content} alt={section.heading || 'Project visual'} loading="lazy" />
                 {section.heading && <p className="image-caption">{section.heading}</p>}
               </div>
             </div>
@@ -82,7 +67,7 @@ const ProjectDetail = () => {
               />
             </div>
           )}
-        </motion.section>
+        </section>
       ))}
 
       {/* Gallery Section */}
@@ -93,7 +78,7 @@ const ProjectDetail = () => {
             <div className="gallery-grid">
               {project.gallery.map((img, i) => (
                 <div key={i} className="gallery-item">
-                  <img src={img} alt={`${project.title} — ${i + 1}`} />
+                  <img src={img} alt={`${project.title} — ${i + 1}`} loading="lazy" />
                 </div>
               ))}
             </div>
@@ -124,7 +109,7 @@ const ProjectDetail = () => {
           </div>
         </section>
       )}
-    </motion.div>
+    </div>
   );
 };
 

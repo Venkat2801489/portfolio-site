@@ -34,7 +34,7 @@ const Hero = () => {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 1, delay: 0.5 }}
             >
-              I am {personalInfo.name}
+              Independent
             </motion.div>
             <div className="hero__main-container">
               <AnimatePresence mode="wait">

@@ -181,6 +181,12 @@
   margin: 0;
 }
 
+.prof-item__location {
+  font-size: 13px;
+  color: rgba(255, 255, 255, 0.4);
+  margin-top: 4px;
+}
+
 .prof-item__pill {
   font-size: 10px;
   font-weight: 700;
@@ -235,28 +241,83 @@
     gap: 4rem;
   }
 }
-
-@media (max-width: 640px) {
+ 
+@media (max-width: 768px) {
   .prof-hero {
     padding-top: 80px;
     padding-bottom: 40px;
   }
-
+ 
   .prof-hero__img-wrap {
-    width: 240px;
-    height: 240px;
+    width: 280px;
+    height: 280px;
+  }
+ 
+  .prof-hero__name {
+    font-size: clamp(32px, 10vw, 56px);
   }
 
+  .prof-grid {
+    gap: 3rem;
+  }
+}
+ 
+@media (max-width: 480px) {
+  .prof-hero__img-wrap {
+    width: 200px;
+    height: 200px;
+    border-radius: 20px;
+  }
+ 
   .prof-hero__name {
     font-size: 32px;
+    letter-spacing: -1px;
+    text-align: center;
+  }
+  
+  .prof-hero__role {
+    font-size: 14px;
+    letter-spacing: 2px;
+    margin-top: 0.5rem;
+  }
+
+  .prof-hero__identity {
+    margin-top: 1rem;
+  }
+
+  .prof-body {
+    padding: 3rem 0;
   }
 
   .prof-item {
-    flex-wrap: wrap;
-    gap: 0.6rem;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.8rem;
+    padding: 1.2rem 0;
   }
 
   .prof-item__pill {
     align-self: flex-start;
+    margin-left: 0;
+    font-size: 9px;
+    padding: 4px 10px;
+  }
+
+  .prof-bio__para {
+    font-size: 16px;
+    line-height: 1.7;
+  }
+  
+  .prof-block__label {
+    font-size: 10px;
+    margin-bottom: 1rem;
+  }
+
+  .prof-item__left {
+    gap: 1rem;
+  }
+
+  .prof-item__company {
+    font-size: 16px;
   }
 }

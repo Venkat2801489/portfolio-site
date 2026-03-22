@@ -38,6 +38,77 @@ export const initialData = {
     { id: 3, company: "Lyft", role: "Product Design", logo: "", period: "JUN 2019 - DEC 2020" },
     { id: 4, company: "SurveyMonkey", role: "Product Design", logo: "", period: "MAR 2018 - MAY 2019" }
   ],
+  tools: [
+    { id: 1, label: "Google Search Console", enabled: true },
+    { id: 2, label: "Google Analytics 4", enabled: true },
+    { id: 3, label: "Screaming Frog", enabled: true },
+    { id: 4, label: "Semrush / Ahrefs", enabled: true },
+    { id: 5, label: "Zapier & Automation", enabled: true },
+    { id: 6, label: "Claude & ChatGPT", enabled: true }
+  ],
+  testimonials: [
+    { 
+      id: 1, 
+      name: "Sarah Johnson", 
+      industry: "E-commerce Director", 
+      content: "Venkat's SEO strategies transformed our organic presence. We saw a 3x increase in traffic within just six months.",
+      enabled: true 
+    },
+    { 
+      id: 2, 
+      name: "Michael Chen", 
+      industry: "Tech Founder", 
+      content: "The automation workflows he built saved our team 20+ hours a week. Highly technical and results-oriented.",
+      enabled: true 
+    },
+    { 
+      id: 3, 
+      name: "Sarah Jenkins", 
+      industry: "E-commerce Director", 
+      content: "The growth strategies implemented transformed our online presence within months.", 
+      enabled: true 
+    },
+    { 
+      id: 4, 
+      name: "Elena Rodriguez", 
+      industry: "Global Brand Manager", 
+      content: "Exceptional attention to detail and a results-driven mindset that is hard to find.", 
+      enabled: true 
+    },
+    { 
+      id: 5, 
+      name: "David Smith", 
+      industry: "SaaS Marketing Head", 
+      content: "A rare talent who understands both the technical and creative aspects of digital marketing.", 
+      enabled: true 
+    }
+  ],
+  education: [
+    {
+      id: 1,
+      institution: "Jeppiaar SRR Engineering College",
+      location: "Padur, Tamil Nadu",
+      period: "Jul 2017 - Aug 2021",
+      degree: "BE - Electrical and Communication Engineering",
+      info: "CGPA: 7.24",
+      logo: "",
+      enabled: true
+    }
+  ],
+  faqs: [
+    { 
+      id: 1, 
+      question: "What is your typical project timeline?", 
+      answer: "Most SEO and growth projects show significant results within 3-6 months, though initial optimizations happen in the first few weeks.",
+      enabled: true 
+    },
+    { 
+      id: 2, 
+      question: "Do you offer custom automation solutions?", 
+      answer: "Yes, I specialize in building custom workflows using Tools like Zapier, Make, and AI to streamline marketing operations.",
+      enabled: true 
+    }
+  ],
   certifications: [
     { id: 1, name: "Advanced Digital Marketing", issuer: "Google Career Certificates", logo: "", link: "https://drive.google.com/your-certificate-1" },
     { id: 2, name: "SEO Expert Certification", issuer: "HubSpot Academy", logo: "", link: "https://drive.google.com/your-certificate-2" }

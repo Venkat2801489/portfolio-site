@@ -8,8 +8,8 @@
 
 /* ---- Hero (Portrait + Identity) ---- */
 .prof-hero {
-  padding-top: 100px;
-  padding-bottom: 60px;
+  padding-top: 80px;
+  padding-bottom: 40px;
   border-bottom: 1px solid rgba(255, 255, 255, 0.05);
 }
 
@@ -65,13 +65,13 @@
 
 /* ---- Body Content Grid ---- */
 .prof-body {
-  padding: 80px 0 120px;
+  padding: 60px 0 80px;
 }
 
 .prof-grid {
   display: grid;
   grid-template-columns: 1.4fr 1fr;
-  gap: 6rem;
+  gap: 4rem;
   align-items: start;
 }
 
@@ -79,7 +79,7 @@
 .prof-col {
   display: flex;
   flex-direction: column;
-  gap: 3rem;
+  gap: 2rem;
 }
 
 /* ---- Blocks (Experience / Cert sections) ---- */

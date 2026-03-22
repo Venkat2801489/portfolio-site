@@ -338,7 +338,21 @@ const Dashboard = () => {
     { id: 'certifications', label: 'Certifications' },
     { id: 'work', label: 'Projects' },
     { id: 'faqs', label: 'FAQ' },
+    { id: 'sync', label: '🚀 Sync / Export' },
   ];
+
+  const downloadDataFile = () => {
+    const dataString = `export const initialData = ${JSON.stringify(localData, null, 2)};`;
+    const blob = new Blob([dataString], { type: 'text/javascript' });
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement('a');
+    link.href = url;
+    link.download = 'initialData.js';
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+    URL.revokeObjectURL(url);
+  };
 
   return (
     <div className="dashboard-wrapper">
@@ -367,6 +381,20 @@ const Dashboard = () => {
               {saveStatus ? 'SAVED ✓' : 'SAVE CHANGES'}
             </button>
             {saveStatus && <p className="status-msg">{saveStatus}</p>}
+            
+            <button 
+              className="ghost-add-btn sm" 
+              style={{ width: '100%', marginTop: '20px', borderColor: 'rgba(255,255,255,0.1)', color: 'rgba(255,255,255,0.3)' }}
+              onClick={() => {
+                if (window.confirm("ARE YOU SURE? This will clear all unsaved changes and reset to the latest version on GitHub.")) {
+                  localStorage.removeItem('portfolio_data');
+                  localStorage.removeItem('portfolio_data_version');
+                  window.location.reload();
+                }
+              }}
+            >
+              RESET TO DEFAULTS
+            </button>
           </div>
         </aside>
 
@@ -381,6 +409,53 @@ const Dashboard = () => {
 
           <div className="scroll-content">
             <AnimatePresence mode="wait">
+
+              {/* ════════════════════════════════ SYNC TAB ══════════════════════════════════ */}
+              {activeTab === 'sync' && (
+                <motion.div key="sync" initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -10 }} className="config-section">
+                  <div className="sync-banner">
+                    <div className="sync-icon">🌎</div>
+                    <div className="sync-text">
+                      <h2>Global Sync</h2>
+                      <p>Your changes are currently saved only to <b>this browser</b>. To make them visible on all devices (including mobile) and to recruiters, follow these steps:</p>
+                    </div>
+                  </div>
+
+                  <div className="sync-steps">
+                    <div className="sync-step-card">
+                      <div className="step-num">1</div>
+                      <h4>Download File</h4>
+                      <p>Download your updated data as a file.</p>
+                      <button className="primary-btn" onClick={downloadDataFile}>DOWNLOAD initialData.js</button>
+                    </div>
+                    
+                    <div className="sync-step-card">
+                      <div className="step-num">2</div>
+                      <h4>Replace in Project</h4>
+                      <p>Replace the file in <code>src/data/initialData.js</code> with the one you just downloaded.</p>
+                    </div>
+
+                    <div className="sync-step-card">
+                      <div className="step-num">3</div>
+                      <h4>Push to GitHub</h4>
+                      <p>Commit your changes and push to GitHub. Vercel will automatically update the live site for everyone.</p>
+                    </div>
+                  </div>
+
+                  <div className="config-card full">
+                    <h3>Raw Data View</h3>
+                    <p className="input-hint">You can also copy this entire block and paste it into <code>src/data/initialData.js</code> manually.</p>
+                    <textarea 
+                      readOnly 
+                      value={`export const initialData = ${JSON.stringify(localData, null, 2)};`}
+                      rows="10"
+                      className="code-textarea"
+                      style={{ fontFamily: 'monospace', fontSize: '11px', background: '#0a0a0a', color: '#0f0', border: '1px solid #333' }}
+                    />
+                  </div>
+                </motion.div>
+              )}
 
               {/* ════════════════════════════════ GENERAL TAB ════════════════════════════════ */}
               {activeTab === 'general' && (

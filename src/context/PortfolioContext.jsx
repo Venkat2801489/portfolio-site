@@ -4,7 +4,7 @@ import { initialData } from '../data/initialData';
 const PortfolioContext = createContext();
 
 // Increment this whenever initialData schema changes, to bust stale localStorage
-const DATA_VERSION = '8'; // Updated for Education section
+const DATA_VERSION = '9'; // Forced reset for Global Sync features
 
 export const PortfolioProvider = ({ children }) => {
   const [portfolioData, setPortfolioData] = useState(() => {

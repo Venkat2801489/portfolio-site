@@ -32,10 +32,10 @@ const Header = () => {
         <nav className={`header__nav${menuOpen ? ' header__nav--open' : ''}`}>
           <ul className="header__nav-list">
             <li>
-              <Link to="/work" onClick={() => setMenuOpen(false)}>Work</Link>
+              <Link to={portfolioData.seo?.pages?.work?.slug || "/work"} onClick={() => setMenuOpen(false)}>Work</Link>
             </li>
             <li>
-              <Link to="/profile" onClick={() => setMenuOpen(false)}>Profile</Link>
+              <Link to={portfolioData.seo?.pages?.profile?.slug || "/profile"} onClick={() => setMenuOpen(false)}>Profile</Link>
             </li>
             <li>
               <a

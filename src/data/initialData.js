@@ -2,10 +2,10 @@ export const initialData = {
   personalInfo: {
     name: "Venkateswaran",
     role: "Digital Marketer",
-    designations: ["Digital Marketing Specialist", "SEO Executive", "Senior SEO Executive"],
+    designations: ["Independent WordPress Developer", "AI Marketer", "SEO Specialist"],
     email: "hello@venkat.design",
     bio: [
-      "Venkateswaran is a **digital marketer, growth strategist,** and **creative direction enthusiast**. Based in Chennai, his career has evolved through a deep passion for building high-impact brand identities.",
+      "Venkateswaran is an **Independent WordPress Developer, AI Marketer,** and **SEO Specialist**. Based in Chennai, his career has evolved through a deep passion for building high-impact brand identities.",
       "He has successfully led growth teams and scaled brand presence for various market leaders in the digital space. His approach intersects **data analytics** and **visual storytelling**, ensuring every campaign not only reaches its target audience but leaves a lasting imprint.",
       "Throughout his career, Venkateswaran has had the opportunity to work on growth strategies at Microsoft, Twitch, SurveyMonkey, Lyft, Robinhood, and now Dropbox. He has dedicated his career to the intersection of market reach and digital design.",
       "In doing so, Venkateswaran has helped some of the world's most iconic brands build trust, drive preference, and create affinity through thoughtful and emotive brand marketing."

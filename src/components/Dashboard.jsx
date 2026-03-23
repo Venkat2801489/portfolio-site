@@ -329,6 +329,7 @@ const Dashboard = () => {
   }
 
   const tabs = [
+    { id: 'general', label: '👤 General / Profile' },
     { id: 'focus', label: 'Focus / Skills' },
     { id: 'tools', label: 'Tools' },
     { id: 'testimonials', label: 'Testimonials' },
@@ -338,6 +339,7 @@ const Dashboard = () => {
     { id: 'certifications', label: 'Certifications' },
     { id: 'work', label: 'Projects' },
     { id: 'faqs', label: 'FAQ' },
+    { id: 'seo', label: '🔍 SEO / Meta' },
     { id: 'sync', label: '🚀 Sync / Export' },
   ];
 
@@ -489,6 +491,18 @@ const Dashboard = () => {
                             onChange={e => updatePersonalInfo('portrait', e.target.value)} />
                         </div>
                       </div>
+                      <div className="input-row">
+                        <div className="input-group">
+                          <label>WhatsApp Number (With country code, no +)</label>
+                          <input type="text" value={localData.personalInfo.whatsapp || ''}
+                            placeholder="e.g. 917358061655"
+                            onChange={e => updatePersonalInfo('whatsapp', e.target.value)} />
+                        </div>
+                        <div className="input-group" style={{ opacity: 0.5, pointerEvents: 'none' }}>
+                          <label>System Status</label>
+                          <input type="text" value="Active / Licensed" readOnly />
+                        </div>
+                      </div>
                     </div>
 
                     <div className="config-card full">
@@ -534,17 +548,21 @@ const Dashboard = () => {
                     </div>
 
                     <div className="config-card full">
-                      <h3>Resume & Assets</h3>
+                      <h3>Resume & Documents</h3>
                       <div className="input-group">
-                        <label>Resume File URL (PDF / Link)</label>
+                        <label>Upload / Link Resume (PDF / URL)</label>
                         <div className="input-with-action">
                           <input type="text" value={localData.personalInfo.resumeUrl || ''}
-                            placeholder="/resume.pdf"
+                            placeholder="/resume.pdf or https://drive.google.com/..."
                             onChange={e => updatePersonalInfo('resumeUrl', e.target.value)} />
                           <a href={localData.personalInfo.resumeUrl} target="_blank" rel="noreferrer"
                             className="preview-link">Verify link</a>
                         </div>
-                        <p className="input-hint">This link syncs with the 'Resume' button in your site menu.</p>
+                        <p className="input-hint">
+                          <b>How to upload:</b> Either paste a link to your Google Drive/Dropbox PDF, 
+                          or place your <code>resume.pdf</code> file in the <code>public/</code> folder 
+                          of this project and type <code>/resume.pdf</code> above.
+                        </p>
                       </div>
                     </div>
 

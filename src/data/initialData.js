@@ -3,96 +3,91 @@ export const initialData = {
     "name": "Venkateswaran",
     "role": "Digital Marketer",
     "designations": [
-      "WordPress Developer",
       "AI Marketer",
       "SEO Specialist"
     ],
-    "email": "hello@venkat.design",
+    "email": "avenkatesh2801@gmail.com",
     "bio": [
-      "Venkateswaran is an **Independent WordPress Developer, AI Marketer,** and **SEO Specialist**. Based in Chennai, his career has evolved through a deep passion for building high-impact brand identities.",
-      "He has successfully led growth teams and scaled brand presence for various market leaders in the digital space. His approach intersects **data analytics** and **visual storytelling**, ensuring every campaign not only reaches its target audience but leaves a lasting imprint.",
-      "Throughout his career, Venkateswaran has had the opportunity to work on growth strategies at Microsoft, Twitch, SurveyMonkey, Lyft, Robinhood, and now Dropbox. He has dedicated his career to the intersection of market reach and digital design.",
-      "In doing so, Venkateswaran has helped some of the world's most iconic brands build trust, drive preference, and create affinity through thoughtful and emotive brand marketing."
+      "SEO Specialist with 4+ years of experience in on-page, off-page, and technical SEO across B2B and B2C websites. Proven track record in growing organic traffic, improving keyword rankings, building high-authority backlinks, and optimizing Core Web Vitals. ",
+      "Experienced in WordPress and Shopify SEO, GA4, Google Search Console, and AI-powered SEO workflows. Built an automated reporting tool integrating GA4, GSC, and a custom keyword rank tracking module that significantly reduced manual reporting effort. Works closely with content, design, and development teams to align SEO strategies with business goals.",
+      "",
+      ""
     ],
     "socials": {
-      "linkedin": "https://linkedin.com/in/venkateswaran",
-      "github": "https://github.com/venkateswaran"
+      "linkedin": "https://www.linkedin.com/in/venkateswaran2801/",
+      "github": "https://github.com/Venkat2801489"
     },
     "whatsapp": "917358061655",
     "portrait": "/assets/portrait_final.png",
-    "resumeUrl": "/resume.pdf"
+    "resumeUrl": "https://docs.google.com/document/d/1Y2wrz2SBAsxz09BTVP_Hg4FXPWUjogVk/edit"
   },
   "focus": [
     {
       "id": 1,
-      "label": "Brand Experience",
+      "label": "SEO",
       "enabled": true
     },
     {
       "id": 2,
-      "label": "Digital Marketing",
-      "enabled": true
-    },
-    {
-      "id": 3,
-      "label": "SEO & Growth",
-      "enabled": true
-    },
-    {
-      "id": 4,
-      "label": "Creative Direction",
-      "enabled": true
-    },
-    {
-      "id": 5,
       "label": "Content Strategy",
       "enabled": true
     },
     {
+      "id": 3,
+      "label": "Wordpress",
+      "enabled": true
+    },
+    {
+      "id": 4,
+      "label": "Keyword Research",
+      "enabled": true
+    },
+    {
+      "id": 5,
+      "label": "AEO",
+      "enabled": true
+    },
+    {
       "id": 6,
-      "label": "Marketing Automation",
+      "label": "Competitor Analysis",
       "enabled": true
     },
     {
       "id": 7,
-      "label": "AI Workflows",
+      "label": "CRO",
+      "enabled": true
+    },
+    {
+      "id": 1774245860611,
+      "label": "Local SEO",
       "enabled": true
     }
   ],
   "facts": [
-    "I've dedicated my career to the intersection of Brand and Product Design, known as Brand Experience Design. Focusing on highly crafted visual design, interactive prototyping across devices and hardware, as well as an emotive and intentional approach to integrating brand and visual identity systems within digital product experiences. /",
-    "I currently lead the Brand Experience (Brand XP) team at Dropbox as both a manager and an individual contributor. I oversee a team of product, brand, and motion designers. /",
-    "The Brand XP team operates as a horizontal partner to the Engineering, Product, and Design organizations. We collaborate with product teams at various altitudes to elevate design craft, create branded product experiences that connect emotionally with customers, and evolve our visual identity system across our portfolio of products. /",
-    "Over the years, I've analyzed, identified, and designed hundreds of emotive product experiences that have shaped how people perceive and engage with brands they know and love. By focusing on emotion, understanding a user's emotional state, and tapping into key moments, I've been able to infuse brand into product experiences in ways that build trust, drive preference, and create deep affinity for some of the world's most recognized brands. /"
+    "Senior SEO Analyst with 4+ years of experience in on-page, off-page, and technical SEO across B2B and B2C websites. Proven track record in growing organic traffic, improving keyword rankings, building high-authority backlinks, and optimizing Core Web Vitals. ",
+    "Experienced in WordPress and Shopify SEO, GA4, Google Search Console, and AI-powered SEO workflows. Built an automated reporting tool integrating GA4, GSC, and a custom keyword rank tracking module that significantly reduced manual reporting effort. Works closely with content, design, and development teams to align SEO strategies with business goals."
   ],
   "experiences": [
     {
       "id": 1,
-      "company": "Dropbox",
-      "role": "Product Design",
-      "logo": "",
-      "period": "SEPT 2022 - PRESENT"
+      "company": "SEO Executive",
+      "role": "SEO Executive",
+      "logo": "https://metaweb.com.au/wp-content/uploads/2025/07/metaweb-logo-dark-bg.png",
+      "period": "Nov 2023 - Present"
     },
     {
       "id": 2,
-      "company": "Robinhood",
-      "role": "Product Design",
-      "logo": "",
-      "period": "JAN 2021 - AUG 2022"
+      "company": "Digital Marketing Executive",
+      "role": "Digital Marketing Executive",
+      "logo": "https://s3.ap-south-1.amazonaws.com/w2s-site/logo/w2ssolutions-logo.png",
+      "period": "Mar 2023 - Oct 2023"
     },
     {
       "id": 3,
-      "company": "Lyft",
-      "role": "Product Design",
-      "logo": "",
-      "period": "JUN 2019 - DEC 2020"
-    },
-    {
-      "id": 4,
-      "company": "SurveyMonkey",
-      "role": "Product Design",
-      "logo": "",
-      "period": "MAR 2018 - MAY 2019"
+      "company": "Digital Marketing Executive",
+      "role": "Digital Marketing Executive",
+      "logo": "https://isourceindia.com/wp-content/uploads/2024/05/33.png",
+      "period": " Jan 2022 - Mar 2023"
     }
   ],
   "tools": [
@@ -118,49 +113,57 @@ export const initialData = {
     },
     {
       "id": 5,
-      "label": "Zapier & Automation",
+      "label": "N8N Automation",
       "enabled": true
     },
     {
       "id": 6,
-      "label": "Claude & ChatGPT",
+      "label": "ChatGPT",
+      "enabled": true
+    },
+    {
+      "id": 1774245895397,
+      "label": "Claude",
+      "enabled": true
+    },
+    {
+      "id": 1774245917603,
+      "label": "Antigravity",
+      "enabled": true
+    },
+    {
+      "id": 1774245935540,
+      "label": "Google Tag Manager",
       "enabled": true
     }
   ],
   "testimonials": [
     {
       "id": 1,
-      "name": "Sarah Johnson",
-      "industry": "E-commerce Director",
-      "content": "Venkat's SEO strategies transformed our organic presence. We saw a 3x increase in traffic within just six months.",
-      "enabled": true
-    },
-    {
-      "id": 2,
-      "name": "Michael Chen",
-      "industry": "Tech Founder",
-      "content": "The automation workflows he built saved our team 20+ hours a week. Highly technical and results-oriented.",
-      "enabled": true
-    },
-    {
-      "id": 3,
-      "name": "Sarah Jenkins",
-      "industry": "E-commerce Director",
-      "content": "The growth strategies implemented transformed our online presence within months.",
-      "enabled": true
-    },
-    {
-      "id": 4,
-      "name": "Elena Rodriguez",
-      "industry": "Global Brand Manager",
-      "content": "Exceptional attention to detail and a results-driven mindset that is hard to find.",
+      "name": "Senthil kumar",
+      "industry": "Web Developer",
+      "content": "I worked with Venkat at iSource for nearly a year, where he consistently demonstrated exceptional skills\nin technical SEO and various other SEO tasks. His attention to detail, strategic thinking, and ability to\nsolve complex issues were invaluable to our team. Venkat is not only highly knowledgeable but also a re-\nliable team player, always ready to go the extra mile to achieve results. I highly recommend him for any\nrole in SEO and digital marketing.",
       "enabled": true
     },
     {
       "id": 5,
-      "name": "David Smith",
-      "industry": "SaaS Marketing Head",
-      "content": "A rare talent who understands both the technical and creative aspects of digital marketing.",
+      "name": "Anirudh",
+      "industry": "Creative Head",
+      "content": "Super talented SEO guy in our team. We collaborated on different projects, and I would say that one of\nVenkat's biggest strengths is his ability to see the bigger picture in whatever he does. Plus, his ability to\napply theoretical concepts in practical situations makes him an invaluable asset to our team. He also\nnever shies away from learning new things, is consistent, always on the grind, and a big-time anime\nnerd!",
+      "enabled": true
+    },
+    {
+      "id": 1774246151922,
+      "name": "Ramya",
+      "industry": "SEO - Team Lead",
+      "content": "I had the pleasure of working with Venkat at iSource ITES, and I can genuinely say he's an outstanding\nprofessional in both SEO and WordPress. He brought a strategic approach to our SEO efforts,\nconsistently boosting our search rankings and offering smart, practical ideas for content optimization.\nOn the WordPress side, he was our go-to person for site updates, performance improvements, and\ncreating SEO-friendly structures, always handling tasks with ease and precision.\nBeyond his technical skills, Venkat is a supportive team player who's always ready to share his expertise\nand help others succeed. His proactive, detail-oriented approach made every project smoother and more\nsuccessful. I wholeheartedly recommend Venkat for any team needing a true SEO and WordPress expert.",
+      "enabled": true
+    },
+    {
+      "id": 1774246210226,
+      "name": "Balamurugan Palanivel",
+      "industry": "Operation Head",
+      "content": "I've had the pleasure of working with Venkatesh A on several SEO initiatives, and his expertise in search\nengine optimization is truly exceptional. Venkatesh has a keen eye for detail and a deep understanding\nof both technical and on-page SEO, which consistently leads to significant improvements in search\nrankings and organic traffic. His ability to analyze complex data, implement strategic SEO plans, and stay\nahead of industry trends sets him apart.\n\nVenkatesh is also an excellent communicator and a collaborative team member. He ensures that\neveryone understands the SEO strategy and aligns his efforts seamlessly with broader marketing goals. I\nhighly recommend Venkatesh to any organization looking to enhance their digital presence and achieve\nlong-term SEO success.",
       "enabled": true
     }
   ],
@@ -172,7 +175,7 @@ export const initialData = {
       "period": "Jul 2017 - Aug 2021",
       "degree": "BE - Electrical and Communication Engineering",
       "info": "CGPA: 7.24",
-      "logo": "",
+      "logo": "https://image-static.collegedunia.com/public/college_data/images/logos/1393998412Jeppiaar%20Engineering%20College.png?h=71.7&w=71.7&mode=stretch",
       "enabled": true
     }
   ],
@@ -193,59 +196,61 @@ export const initialData = {
   "certifications": [
     {
       "id": 1,
-      "name": "Advanced Digital Marketing",
-      "issuer": "Google Career Certificates",
-      "logo": "",
-      "link": "https://drive.google.com/your-certificate-1"
+      "name": "Advanced AI for Marketing Course",
+      "issuer": "Young Urban Project",
+      "logo": "https://www.youngurbanproject.com/wp-content/uploads/2022/08/youngurbanprojectlogo-300x300.png",
+      "link": "https://drive.google.com/file/d/1inm2greFdRpOEaZtmSa5s9LAgKfkIBnc/view"
     },
     {
       "id": 2,
-      "name": "SEO Expert Certification",
-      "issuer": "HubSpot Academy",
-      "logo": "",
-      "link": "https://drive.google.com/your-certificate-2"
+      "name": "Professional Certification in Digital Marketing",
+      "issuer": "Digital Academy 360",
+      "logo": "https://www.digitalacademy360.com/images/logo.svg",
+      "link": "https://drive.google.com/file/d/1fGw53MU9aBJR3UVJj6_OFWF-7sGT5xS5/view"
     }
   ],
   "projects": [
     {
       "id": 1,
-      "slug": "google-maps-optimization",
-      "title": "Google Maps Optimization",
-      "category": "GMB",
-      "image": "https://images.unsplash.com/photo-1569336415962-a4bd9f6dfc0f?q=80&w=2000&auto=format&fit=crop",
-      "year": "2024",
-      "description": "Scaling local search visibility through advanced GMB strategies and review management.",
+      "slug": "neotas-b2b-saas",
+      "title": "Neotas -  B2B SaaS / Intelligence Technology",
+      "category": "SEO",
+      "image": "https://www.neotas.com/wp-content/uploads/2023/09/Neotas-Logo.png",
+      "year": "2026",
+      "description": "Neotas is a UK-based intelligence platform offering open-source intelligence (OSINT), enhanced due diligence, AML compliance, third-party risk management (TPRM), and social media background checks to enterprise clients globally.",
       "sections": [
         {
           "id": 101,
           "type": "text",
-          "heading": "Overview",
-          "content": "This project focused on scaling local search visibility for a regional business through targeted Google Maps strategies."
+          "heading": "OVERVIEW",
+          "content": "Neotas.com is a <b>B2B intelligence and compliance technology platform</b>. It targets enterprise buyers, compliance officers, legal teams, and risk managers across the UK, US, India, and 19+ other countries. The site's SEO success depends on ranking for high-intent informational and commercial keywords across OSINT, due diligence, AML, and TPRM content clusters.<br><div bis_skin_checked=\"1\"><span style=\"font-family: inherit;\"><br></span></div><h2><span style=\"font-family: inherit;\">Site Overview</span></h2><div bis_skin_checked=\"1\"><span style=\"font-family: inherit;\">Domain Rating (DR): 37</span></div><div bis_skin_checked=\"1\">URL Rating (UR): 9</div><div bis_skin_checked=\"1\">Organic keywords ranking: 650</div><div bis_skin_checked=\"1\">Estimated monthly organic traffic: 5,000 (Ahrefs) / 16,711 clicks in Q1 2026 (GSC)</div><div bis_skin_checked=\"1\">Backlinks: 981 active (9,900 all-time)</div><div bis_skin_checked=\"1\">Referring domains: 348 active (963 all-time)</div><div bis_skin_checked=\"1\">Paid keywords: 0 (zero paid spend, 100% organic growth)</div><div bis_skin_checked=\"1\">Pages receiving organic clicks: 406 unique URLs</div><div bis_skin_checked=\"1\"><br></div><h2><b>AI Citation Presence</b></h2><div bis_skin_checked=\"1\">Google AI Overviews: 195 citations across 52 pages</div><div bis_skin_checked=\"1\">ChatGPT: 6 citations across 6 pages</div><div bis_skin_checked=\"1\">Perplexity: 1 citation</div><div bis_skin_checked=\"1\">Top Traffic Countries: India (5,088 clicks), United Kingdom (2,369 clicks), United States (2,033 clicks)</div>"
         },
         {
           "id": 102,
           "type": "text",
           "heading": "The Challenge",
-          "content": "The client had low visibility in local search results despite having a strong offline presence."
+          "content": "<h2>Starting conditions and obstacles faced:</h2><div bis_skin_checked=\"1\"><span style=\"font-family: inherit;\">1. inst established compliance, legal, and intelligence platforms with DR 60-80+. RLow domain authority in a high-authority niche. With a DR of 37, Neotas competed agaanking for any keyword with meaningful volume required content quality to compensate for link authority gaps.</span><br><br><span style=\"font-family: inherit;\">2. Zero paid traffic budget. The site ran no paid search ads whatsoever (paid keywords: 0, paid traffic: 0). Every session had to be earned through organic search alone, placing full pressure on content strategy and on-page SEO.</span><br><br><span style=\"font-family: inherit;\">3. Thin keyword footprint at the start. The Ahrefs data shows 650 total keywords ranking at the time of the snapshot, with many keywords in the 11-20 position range. The average GSC position across the tracked keyword set was 10.32, meaning the bulk of the site's rankings sat on the edge of page one without consistently breaking into the top 3.</span><br><br><span style=\"font-family: inherit;\">4. Low CTR efficiency despite high impressions. The GSC data shows 5,254,704 impressions across 406 pages in the tracked period but only 16,837 total clicks, representing a CTR of approximately 0.32%. This exposed a significant gap between visibility and click capture, pointing to title tag, meta description, and SERP feature underutilization.</span><br><br><span style=\"font-family: inherit;\">5. Content spread across multiple competitive clusters. The site covered OSINT, due diligence, AML compliance, TPRM, and background checks simultaneously. Without a structured content cluster strategy, topical authority was diluted across categories rather than concentrated in any one.</span><br><br><span style=\"font-family: inherit;\">6. High competition for OSINT keywords. Queries like \"osint framework\" (202,175 impressions), \"osint technical\" (73,374 impressions), and \"osint tools\" (10,461 impressions) carried enormous search volume but were dominated by tool-specific platforms and GitHub repositories with DR 80+.</span><br><br><span style=\"font-family: inherit;\">7. Limited international targeting despite global audience. Traffic came from 19+ countries including Indonesia, Turkey, Malaysia, and South Africa, but there was no structured hreflang or regional content strategy to capture these markets effectively.</span></div>"
         },
         {
           "id": 103,
           "type": "text",
           "heading": "Solution",
-          "content": "We implemented a full GMB audit, optimized categories, managed reviews, and ran local citation campaigns."
+          "content": "<h2>Strategic SEO work undertaken:<br><br></h2><div bis_skin_checked=\"1\"><h3>1. <b>Content Cluster Build-Out Around Core Pillars</b></h3><br>Developed and optimized content across five distinct topical clusters: OSINT tools and techniques, due diligence (standard, enhanced, investment, simplified, customer), AML compliance, third-party risk management, and social media background checks. Each cluster was built around a hub page with supporting long-tail content feeding authority upward. Examples include the \"what is the OSINT framework\" hub, the \"due diligence\" pillar, and the \"risk management framework\" cornerstone page.<br><br></div><div bis_skin_checked=\"1\"><h3>2. <b>Informational Content Targeting High-Volume, Low-KD Keywords</b></h3><br>Prioritized keywords with keyword difficulty (KD) under 10 where the site could rank without requiring link equity it did not yet have. Targets included \"enhanced due diligence checklist\" (KD 0, US), \"high risk customer\" (KD 1, India), \"investment due diligence checklist\" (KD 12), and \"simplified due diligence\" (KD 0). These became consistent top-3 ranking pages.<br><br></div><div bis_skin_checked=\"1\"><h3>3. <b>AI Overview and SERP Feature Optimization</b></h3><br>Structured content to qualify for Google AI Overviews and rich SERP features. The result: 195 AI Overview citations across 52 pages as of April 2026. Individual pages like \"enhanced due diligence checklist\" and \"high risk customer\" achieved AI Overview positioning in the US market.<br><br></div><div bis_skin_checked=\"1\"><h3>4. <b>Glossary and Resource Page Expansion</b></h3><br>Built out a structured glossary section (/glossary/) to capture definitional and navigational searches in the compliance space. Pages like \"who are high risk customers\" (438 GSC clicks, 93,929 impressions) and \"TPRM questionnaire\" (260 GSC clicks) came directly from this initiative.<br><br></div><div bis_skin_checked=\"1\"><h3>5. <b>Link Acquisition Targeting Authority Domains</b></h3><br>Focused outreach and content seeding toward high-DR referring domains. Current backlink profile includes links from GOV.UK (DR 94), GitHub (DR 97), Gartner (DR 92), Crunchbase (DR 91), CBInsights (DR 86), Medium (DR 94), Rapyd (DR 74), Zellis (DR 61), Equidam (DR 53), and Coller Capital (DR 58). Of the 412 backlinks in the export, 79 come from DR 50+ domains.<br><br></div><div bis_skin_checked=\"1\"><h3>6. <b>International Content and On-Page Localization</b></h3><br>Identified and optimized for international search demand in Indonesia, India, Turkey, and South Africa. The \"simplified due diligence\" page now ranks for \"sdd adalah\" in Indonesia (an Indonesian-language query), and \"osint framework\" ranks position 10 in Indonesia after entering as a new keyword. Translated results account for 1,158 clicks and 88,405 impressions in the GSC period.<br><br></div><div bis_skin_checked=\"1\"><h3>7. <b>On-Page SEO and Title/Meta Refinement</b></h3><br>Addressed the CTR gap visible in the data by refining title tags and meta descriptions for pages with high impressions but low clicks. The \"risk management framework\" page, for example, now drives 1,012 monthly visits per Ahrefs despite targeting a 25,000-volume keyword in the US.</div><div bis_skin_checked=\"1\"><br></div>"
         },
         {
           "id": 104,
           "type": "text",
           "heading": "Results",
-          "content": "3x increase in map views, 45% increase in direction requests, top-3 ranking in local pack."
+          "content": "1. \"dark osint\" ranked at position 4.31 and drove 1,802 clicks and 46,034 impressions in the Oct-Dec 2025 period alone, making it the single highest-traffic keyword in the entire GSC export.<br><br><div bis_skin_checked=\"1\">2. \"risk management framework\" became the highest-traffic page on the site per Ahrefs, generating an estimated 1,012 monthly visits. It entered as a new keyword in Portugal (5,600 monthly search volume, position 6) and South Africa (4,800 volume, position 12) in the tracked Ahrefs window.<br><br></div><div bis_skin_checked=\"1\">3. \"osint framework\" in Indonesia moved from position 26 to position 10, a gain of 16 positions, becoming a new top-10 ranking in a 2,600-volume market.<br><br></div><div bis_skin_checked=\"1\">4. \"investment due diligence checklist\" achieved an AI Overview placement in the US at position 1, up from position 2, on a keyword with commercial CPC of $4.13 with zero paid spend.<br><br></div><div bis_skin_checked=\"1\">5. \"mlro full form\" (India) improved from position 8 to position 5, an improvement of 3 positions, on a 450-volume keyword with AI Overview placement, contributing to the AML glossary cluster's total of 113 monthly visits from that single URL.</div>"
         }
       ],
       "seo": {
-        "title": "Google Maps SEO Case Study | Venkateswaran",
-        "description": "How we achieved a 3x increase in map views using advanced GMB strategies.",
-        "keywords": "GMB SEO, Local SEO, Google Maps Optimization"
-      }
+        "title": "Neotas -  B2B SaaS / Intelligence Technology | Venkateswaran",
+        "description": "Neotas.com is a B2B intelligence and compliance technology platform. It targets enterprise buyers, compliance officers, legal teams, and risk managers across the UK, US, India, and 19+ other countries.",
+        "keywords": "SEO,AEO"
+      },
+      "driveLink": "https://docs.google.com/spreadsheets/d/15nq9eaQMihLtTPx9TKfrcCUoZTJDFqaHIgp0w4txIeY/edit?usp=sharing",
+      "gallery": []
     },
     {
       "id": 2,
@@ -453,7 +458,7 @@ export const initialData = {
       "home": {
         "slug": "/",
         "title": "Venkateswaran | Digital Marketer & Growth Strategist",
-        "description": "Venkateswaran is a marketing strategist based in Chennai, specializing in SEO, growth, and creative direction.",
+        "description": "Venkateswaran is a digital marketer based in Chennai, specializing in SEO, growth, and creative direction.",
         "keywords": "Venkateswaran, Digital Marketer, Growth Strategist, Chennai Marketing",
         "canonical": "https://venkats-portfolio.vercel.app/"
       },
@@ -482,6 +487,6 @@ export const initialData = {
   },
   "footer": {
     "address": "Permanently located in Chennai, Tamil Nadu",
-    "tagline": "Building digital bridges between brands and people."
+    "tagline": ""
   }
 };

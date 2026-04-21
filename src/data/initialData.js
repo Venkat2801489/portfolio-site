@@ -384,7 +384,7 @@ export const initialData = {
       "id": 5,
       "slug": "keyword-cannabalization-skill",
       "title": "Keyword Cannabalization Skill",
-      "category": "Claude Skills",
+      "category": "CLAUDE SKILLS",
       "image": "https://images.unsplash.com/photo-1677442136019-21780ecad995?q=80&w=2070&auto=format&fit=crop",
       "year": "2026",
       "description": "This skill automatically detects keyword cannibalization across a website by analyzing search data from Google Search Console and Ahrefs. Keyword cannibalization occurs when multiple pages on the same domain compete for the same search query, splitting traffic and confusing search engines about which page to rank.",
